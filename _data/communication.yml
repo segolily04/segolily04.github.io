@@ -1,0 +1,81 @@
+# "Communication in Practice" case studies.
+# Each is applied communication work, framed as a learning and experimentation portfolio.
+# Edit the text freely. 'artifact' sets the placeholder image kind: diagram, photo, or sketch.
+# Nothing here claims commercial results. "applies" is written as possibility, not outcomes achieved.
+
+intro: >
+  I treat communication as something you design and test, not something you either have or don't.
+  A lot of that practice has happened in Toastmasters, where I could experiment with real audiences every week.
+  Each piece below started as community work. I have written it up the way I would any project:
+  what the situation was, what I tried, what I noticed, and where the same thinking could go in a business.
+
+cases:
+  - n: "01"
+    tag: "Audience experience design"
+    title: "Rearranging the room so people lean in"
+    context: "A weekly meeting where the usual rows left quieter members on the edges and easy to skip over."
+    work: "I tried a V-shaped seating layout instead of straight rows, so people faced each other and the speaker had everyone in sightline. I ran it across several meetings and watched how it changed the feel of the room."
+    observed: "More people spoke up, and the ones who usually stayed quiet were harder to overlook. The room felt less like an audience and more like a table."
+    skill: "Designing the physical and social setup of a gathering so participation is the easy default, not an act of courage."
+    applies: "The same instinct shapes a workshop, a sales discovery session, or a customer onboarding event: how a space is arranged changes who talks and how safe they feel doing it."
+    artifact: diagram
+    artifact_variant: vlayout
+    artifact_alt: "Diagram of a V-shaped meeting layout"
+    artifact_cap: "Sketch of the V-shaped layout"
+
+  - n: "02"
+    tag: "Brand messaging"
+    title: "An opening that actually says who we are"
+    context: "Meeting introductions that had become routine, a few housekeeping lines before getting on with it."
+    work: "I rewrote the opening as a purposeful introduction: a short, repeatable way to state the group's mission and what a newcomer could expect to get from being there. I treated it like a brand message that a guest hears in the first two minutes."
+    observed: "Guests had a clearer sense of why they were in the room, and the opening gave the meeting a consistent identity instead of a cold start."
+    skill: "Turning a mission into a few plain sentences that a stranger understands immediately, and making them repeatable."
+    applies: "This is the same muscle as a value proposition, an elevator pitch, or the first screen of a landing page: say who you are and why it matters before attention drifts."
+    artifact: sketch
+    artifact_alt: "Notes drafting a purposeful meeting introduction"
+    artifact_cap: "Draft of the opening message"
+
+  - n: "03"
+    tag: "Audience engagement"
+    title: "Thinking on your feet, out loud"
+    context: "Table Topics, the part of the meeting where people answer an unexpected question with a short impromptu response."
+    work: "I practised and led this format: listening closely to a question, shaping a clear answer in the moment, and reading the room to adjust how I said it for who was listening."
+    observed: "I got more comfortable improvising under light pressure, and better at tailoring the same point for different people in the room."
+    skill: "Spontaneous communication: listening, composing a response live, and adapting the message to the audience in front of me."
+    applies: "Every unscripted sales call, discovery question, and objection in a meeting asks for this. It is the difference between a prepared pitch and a real conversation."
+    artifact: photo
+    artifact_alt: "Placeholder for a photo from a meeting"
+    artifact_cap: "A photo from a session could go here"
+
+  - n: "04"
+    tag: "Community operations"
+    title: "Making an online room safe to be in"
+    context: "Moving meetings to Zoom, where disruption, awkward handoffs, and unclear norms can derail a session fast."
+    work: "I helped develop safety and moderation protocols: how hosts and co-hosts share control, how to handle a disruptive participant, and the small norms that keep a video room calm and welcoming."
+    observed: "Meetings ran with fewer interruptions, and newcomers had a clearer, safer path into the conversation."
+    skill: "Designing the operating rules of a shared space so it stays welcoming under pressure, and training others to run them."
+    applies: "Any business running webinars, online communities, or virtual customer events needs this. Smooth, safe facilitation is part of the customer experience, not a side detail."
+    artifact: sketch
+    artifact_alt: "Notes on Zoom moderation roles and protocols"
+    artifact_cap: "Moderation roles and protocols"
+
+  - n: "05"
+    tag: "Feedback and development"
+    title: "Feedback that people can actually use"
+    context: "Speech evaluations, where you give a fellow member structured, spoken feedback right after they present."
+    work: "I practised giving evaluations: naming what worked, offering one or two specific things to try next, and delivering it so the person left encouraged rather than deflated."
+    observed: "People acted on the feedback more readily when it was specific and kind, and I got sharper at spotting the one change that would help most."
+    skill: "Giving structured, candid feedback that improves the work without discouraging the person, and doing it in real time."
+    applies: "This is coaching a team, reviewing a colleague's draft, or guiding a client through a revision. Useful feedback is a core part of relationship development and account work."
+    artifact: diagram
+    artifact_variant: feedback
+    artifact_alt: "Diagram of a structured feedback approach"
+    artifact_cap: "A structured feedback approach"
+
+close_title: "Why this sits in a business portfolio"
+close_text: >
+  None of this is a volunteer list. It is where I got to experiment with the things that make communication
+  work: designing an experience, shaping a message, reading an audience, running a room, and giving feedback
+  that lands. Those are the same skills behind good marketing, consultative sales, customer experience, and
+  relationship building. I have kept the claims honest: these are observations from the room, not revenue.
+  The business value is in the transfer, and I am happy to talk through where it fits.

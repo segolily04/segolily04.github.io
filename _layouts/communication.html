@@ -1,0 +1,46 @@
+---
+layout: default
+---
+{% assign c = site.data.communication %}
+
+<section class="comm-hero" aria-labelledby="comm-title">
+  <span class="comm-hero__grain" aria-hidden="true"></span>
+  <div class="container">
+    <p class="eyebrow eyebrow--ochre">Communication in practice</p>
+    <h1 class="comm-hero__title" id="comm-title">Communication is something I <em>design</em> and test.</h1>
+    <p class="comm-hero__lede">{{ c.intro }}</p>
+    <p class="comm-hero__back"><a href="{{ '/' | relative_url }}#capabilities">&larr; Back to capabilities</a></p>
+  </div>
+</section>
+
+<div class="comm-cases">
+  {% for case in c.cases %}
+  <section class="comm-case comm-case--{% cycle 'a','b' %}" aria-labelledby="case-{{ case.n }}">
+    <div class="container comm-case__grid">
+      <div class="comm-case__art">
+        {% include frame.html kind=case.artifact variant=case.artifact_variant tilt=true alt=case.artifact_alt caption=case.artifact_cap %}
+      </div>
+      <div class="comm-case__body">
+        <p class="comm-case__tag"><span class="comm-case__n" aria-hidden="true">{{ case.n }}</span> {{ case.tag }}</p>
+        <h2 class="comm-case__title" id="case-{{ case.n }}">{{ case.title }}</h2>
+        <dl class="comm-case__fields">
+          <div><dt>Where it started</dt><dd>{{ case.context }}</dd></div>
+          <div><dt>What I did</dt><dd>{{ case.work }}</dd></div>
+          <div><dt>What I observed</dt><dd>{{ case.observed }}</dd></div>
+          <div class="comm-case__skill"><dt>Transferable skill</dt><dd>{{ case.skill }}</dd></div>
+          <div class="comm-case__apply"><dt>Where it could apply</dt><dd>{{ case.applies }}</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+  {% endfor %}
+</div>
+
+<section class="comm-close" aria-labelledby="comm-close-title">
+  <div class="container comm-close__inner">
+    <p class="eyebrow eyebrow--onwine">The point of it</p>
+    <h2 class="comm-close__title" id="comm-close-title">{{ c.close_title }}</h2>
+    <p class="comm-close__text">{{ c.close_text }}</p>
+    <p><a class="btn btn--light" href="{{ '/' | relative_url }}#contact">Start a conversation</a></p>
+  </div>
+</section>
