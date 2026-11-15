@@ -3,47 +3,57 @@ layout: default
 ---
 
 <section class="hero" aria-labelledby="hero-title">
-  <div class="hero__media">
-    {% include hero-art.html %}
-    <span class="hero__media-label">Conceptual artwork</span>
-  </div>
+  <span class="hero__grain" aria-hidden="true"></span>
   <div class="container hero__inner">
-    <div class="hero__text">
-      <p class="eyebrow">{{ page.hero_eyebrow }}</p>
-      <h1 class="type-display" id="hero-title">{{ page.hero_title }} <em>{{ page.hero_accent }}</em>{{ page.hero_end }}</h1>
-      <p class="lede">{{ page.hero_lede }}</p>
+    <p class="eyebrow hero__eyebrow">{{ page.hero_eyebrow }}</p>
+    <h1 class="hero__title" id="hero-title">
+      <span class="hero__l1">{{ page.hero_line1 }}</span>
+      <span class="hero__l2">how things <em>{{ page.hero_line2_accent }}</em>.</span>
+      <span class="hero__l3">And imagining how they could work <span class="hero__hand">differently.</span></span>
+    </h1>
+    <div class="hero__foot">
+      <p class="lede hero__lede">{{ page.hero_lede }}</p>
       <p class="hero__actions">
-        <a class="btn btn--primary" href="#work">See selected work</a>
-        <a class="btn btn--outline" href="#contact">Start a conversation</a>
+        <a class="btn btn--primary" href="#work">See what I make</a>
+        <a class="btn btn--ghost" href="#contact">Start a conversation</a>
       </p>
-      <a class="scroll-cue" href="#about"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg> Scroll to explore</a>
+    </div>
+    <div class="hero__collage">
+      <span class="blob blob--a" aria-hidden="true"></span>
+      <span class="blob blob--b" aria-hidden="true"></span>
+      {% include frame.html kind="photo" tilt=true caption="your workspace, your tools" alt="Placeholder for a photo of Patricia's workspace" %}
+      <span class="hero__scrap hero__scrap--1" aria-hidden="true">business × art</span>
+      <span class="hero__scrap hero__scrap--2" aria-hidden="true">systems × people</span>
     </div>
   </div>
-  <svg class="hero__wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 90V46C220 4 470 4 720 38s520 40 720-10v62Z" fill="#FBF3EB"/></svg>
+  <a class="scroll-cue" href="#about"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg> Scroll in</a>
 </section>
 
 <section class="section about" id="about" aria-labelledby="about-title">
+  <span class="about__grain" aria-hidden="true"></span>
   <div class="container about__grid">
     <div class="about__text">
+      <p class="eyebrow eyebrow--ochre">A bit about me</p>
       <h2 class="type-h2" id="about-title">{{ page.about_title }}</h2>
-      <span class="rule" aria-hidden="true"></span>
       <p class="about__lead">{{ page.about_intro }}</p>
       <p class="about__focus">{{ page.about_focus }}</p>
+      <p class="about__note">the overlap is the fun part</p>
     </div>
-    <dl class="about__pillars">
-      <div><dt>Business operations</dt><dd>How work really flows, and where it stalls.</dd></div>
-      <div><dt>Technology</dt><dd>Tools that fit the work, not the other way around.</dd></div>
-      <div><dt>Communication</dt><dd>Clear words that bring people along.</dd></div>
-      <div><dt>Creative problem-solving</dt><dd>Fresh angles on stubborn problems.</dd></div>
-    </dl>
+    <ul class="venn" aria-label="The disciplines I work across">
+      <li class="venn__item venn__item--1">Business operations</li>
+      <li class="venn__item venn__item--2">Technology</li>
+      <li class="venn__item venn__item--3">Creative problem-solving</li>
+      <li class="venn__item venn__item--4">Communication</li>
+    </ul>
   </div>
 </section>
 
 <section class="section process" id="process" aria-labelledby="process-title">
   <div class="container">
-    <div class="section-head section-head--center">
-      <p class="eyebrow eyebrow--accent">How I work</p>
-      <h2 class="type-h2" id="process-title">Understand, design, build, test.</h2>
+    <div class="process__head">
+      <p class="eyebrow eyebrow--onlight">How I work, roughly</p>
+      <h2 class="type-h2" id="process-title">Make. Learn. Rethink. Repeat.</h2>
+      <p class="process__sub">Less a straight line, more a loop I keep walking around. Each turn teaches the next.</p>
     </div>
     {% include cycle.html %}
   </div>
@@ -52,40 +62,36 @@ layout: default
 <section class="section capabilities" id="capabilities" aria-labelledby="caps-title">
   <div class="container">
     <div class="caps-head">
-      <div>
-        <p class="eyebrow eyebrow--accent">Capabilities</p>
-        <h2 class="type-h2" id="caps-title">Bridging ideas across disciplines.</h2>
-      </div>
-      <div class="caps-head__side">
-        <p>From strategy to implementation, I bring together business, technology, and creativity.</p>
-        <p><a class="btn btn--dark" href="{{ '/offerings.html' | relative_url }}">See what I offer</a></p>
-      </div>
+      <p class="eyebrow eyebrow--inverse">What I can do</p>
+      <h2 class="type-h2" id="caps-title">Five ways in. <span class="caps-head__hand">one way of thinking.</span></h2>
+      <p class="caps-head__sub">From strategy to implementation, I bring together business, technology, and creativity. Here is where that shows up.</p>
     </div>
-    <div class="caps">
+    <ol class="caps">
       {% for c in site.data.capabilities %}
-      <article class="cap cap--{{ forloop.index }}">
+      <li class="cap cap--{{ c.tone }}">
+        <span class="cap__num" aria-hidden="true">{{ forloop.index | prepend: "0" }}</span>
         <h3>{{ c.title }}</h3>
         <p class="cap__tag">{{ c.tagline }}</p>
         <p class="cap__text">{{ c.text }}</p>
-      </article>
+      </li>
       {% endfor %}
-    </div>
+    </ol>
   </div>
 </section>
 
 <section class="section work" id="work" aria-labelledby="work-title">
+  <span class="work__grain" aria-hidden="true"></span>
   <div class="container">
-    <div class="section-head">
-      <p class="eyebrow eyebrow--accent">Selected work</p>
-      <h2 class="type-h2" id="work-title">Systems built with people in mind.</h2>
+    <div class="work__head">
+      <h2 class="work__big" id="work-title">Selected<br>work</h2>
+      <p class="work__intro">A few things I have made. Real screenshots and photos will replace the placeholders as I gather them.</p>
     </div>
     <div class="work-list">
       {% for p in site.data.projects %}
-      {% assign odd = forloop.index | modulo: 2 %}
-      <article class="work-item{% if odd == 0 %} work-item--flip{% endif %}">
-        <a class="work-item__art" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
-          {% include project-art.html art=p.art %}
-        </a>
+      <article class="work-item work-item--{% cycle 'l','r' %}">
+        <div class="work-item__art">
+          {% include frame.html kind=p.frame tilt=true alt=p.title %}
+        </div>
         <div class="work-item__body">
           <p class="work-item__cat">{{ p.category }}</p>
           <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
@@ -96,7 +102,6 @@ layout: default
           </ul>
           {% endif %}
           <p><a class="textlink" href="{{ p.url | relative_url }}">See project details<span class="visually-hidden"> for {{ p.title }}</span> &rarr;</a></p>
-          <p class="caption">Conceptual artwork. Real screenshots will replace it.</p>
         </div>
       </article>
       {% endfor %}
@@ -107,9 +112,9 @@ layout: default
 <section class="section insights" id="insights" aria-labelledby="insights-title">
   <div class="container insights__grid">
     <div class="insights__head">
-      <p class="eyebrow eyebrow--accent">Insights</p>
-      <h2 class="type-h2" id="insights-title">Notes on systems and people.</h2>
-      <p>Themes I keep coming back to. Each title becomes a link as the article is published.</p>
+      <p class="eyebrow eyebrow--inverse">From the notebook</p>
+      <h2 class="type-h2" id="insights-title">Things I am chewing on.</h2>
+      <p>Themes I keep circling back to. Each title becomes a link as the piece is published.</p>
     </div>
     <ol class="insights__list">
       {% for i in site.data.insights %}
@@ -126,11 +131,15 @@ layout: default
 <section class="studio" id="studio" aria-labelledby="studio-title">
   <div class="container studio__grid">
     <div class="studio__text">
-      <p class="eyebrow">The studio</p>
+      <p class="eyebrow eyebrow--onwine">The studio</p>
       <h2 class="studio__quote" id="studio-title">{{ page.studio_quote }}</h2>
       <p>{{ page.studio_text }}</p>
       <p><a class="btn btn--light" href="{{ '/offerings.html' | relative_url }}">Explore the studio</a></p>
     </div>
-    <svg class="studio__art" viewBox="0 0 400 400" aria-hidden="true" focusable="false"><g fill="none" stroke="#A9C3DA" stroke-width="1.4" opacity=".5"><circle cx="200" cy="200" r="190"/><circle cx="200" cy="200" r="140"/><circle cx="200" cy="200" r="90"/></g><circle cx="200" cy="200" r="46" fill="#D96F43"/><circle cx="339" cy="104" r="12" fill="#F0A583"/><circle cx="60" cy="236" r="8" fill="#A9C3DA"/></svg>
+    <div class="studio__art" aria-hidden="true">
+      <span class="blob blob--wine-a"></span>
+      <span class="blob blob--wine-b"></span>
+      <span class="studio__mark">PCS</span>
+    </div>
   </div>
 </section>

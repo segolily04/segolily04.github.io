@@ -1,21 +1,27 @@
-# The five capability areas on the homepage. Edit the wording freely.
+# The five capability areas. Edit freely. 'tone' picks the section accent color.
+# tones available: terracotta, ochre, sage, cobalt, wine
 
 - title: "Business systems and analysis"
   tagline: "Analyze. Optimize. Improve."
   text: "I map how work really flows, find where it stalls, and design systems your team can run day to day."
+  tone: cobalt
 
 - title: "AI and automation"
   tagline: "Work smarter. Automate the routine."
   text: "I build agents and workflows with guardrails, so a person stays in charge of the final call."
+  tone: terracotta
 
 - title: "Digital strategy and marketing"
   tagline: "Connect. Engage. Grow."
   text: "I connect your message, your channels, and your tools into one plan that is easy to keep up."
+  tone: ochre
 
 - title: "Web development and technology"
   tagline: "Build. Innovate. Scale."
   text: "I build and maintain websites and small tools, from first sketch to a live page."
+  tone: sage
 
 - title: "Communication and facilitation"
   tagline: "Inform. Inspire. Align."
   text: "I run the conversations that point teams, vendors, and stakeholders in the same direction."
+  tone: wine

@@ -1,0 +1,13 @@
+{% assign k = include.kind | default: "photo" %}
+<figure class="frame frame--{{ k }}{% if include.tilt %} frame--tilt{% endif %}">
+  <div class="frame__slot" role="img" aria-label="{{ include.alt | default: 'Placeholder for a real image' }}">
+    {% if k == "sketch" %}
+    <svg viewBox="0 0 400 300" class="frame__ph" aria-hidden="true" focusable="false"><rect width="400" height="300" fill="#F3EADC"/><g fill="none" stroke="#2B2A28" stroke-width="2" stroke-linecap="round" opacity=".55"><path d="M40 210c40-90 90-130 150-120s110 70 90 130"/><path d="M70 150l40-40 30 30 50-55 40 45"/><circle cx="300" cy="90" r="34"/><path d="M265 230h120"/></g><text x="200" y="285" text-anchor="middle" font-family="Caveat, cursive" font-size="20" fill="#8A5B13">a sketch goes here</text></svg>
+    {% elsif k == "screen" %}
+    <svg viewBox="0 0 400 300" class="frame__ph" aria-hidden="true" focusable="false"><rect width="400" height="300" fill="#123552"/><rect x="0" y="0" width="400" height="34" fill="#0B2A45"/><circle cx="22" cy="17" r="5" fill="#D96F43"/><circle cx="40" cy="17" r="5" fill="#E4B363"/><circle cx="58" cy="17" r="5" fill="#7E9B7E"/><g fill="#A9C3DA" opacity=".8"><rect x="24" y="60" width="150" height="12" rx="3"/><rect x="24" y="84" width="110" height="10" rx="3"/></g><g fill="#2E5A8F"><rect x="24" y="120" width="160" height="150" rx="6"/></g><rect x="206" y="120" width="170" height="70" rx="6" fill="#447299"/><rect x="206" y="200" width="170" height="70" rx="6" fill="#1B4262"/></svg>
+    {% else %}
+    <svg viewBox="0 0 400 300" class="frame__ph" aria-hidden="true" focusable="false"><rect width="400" height="300" fill="#E3E1DD"/><path d="M0 220c70-40 120-40 200 0s130 30 200-10v90H0z" fill="#A9C3DA" opacity=".7"/><circle cx="300" cy="80" r="40" fill="#E4B363"/><path d="M0 250c80-30 130-20 200 5s130 20 200-15v60H0z" fill="#7E9B7E" opacity=".7"/></svg>
+    {% endif %}
+  </div>
+  {% if include.caption %}<figcaption class="frame__cap">{{ include.caption }}</figcaption>{% endif %}
+</figure>

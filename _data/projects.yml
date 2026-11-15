@@ -12,7 +12,7 @@
     - Google Gemini
     - QuickBooks Online API
     - Automated testing
-  art: horizon
+  frame: screen
 
 - title: "Queer Art Glass website"
   url: "/projects/queer-art-glass-website.html"
@@ -20,10 +20,10 @@
   description: "A website for Queer Art Glass."
   skills:
     - Web development
-  art: arches
+  frame: photo
 
 - title: "Digital garden"
   url: "/projects/digital-garden.html"
   category: "Digital garden"
   description: "A personal collection of notes and ideas that grows over time."
-  art: blocks
+  frame: sketch
