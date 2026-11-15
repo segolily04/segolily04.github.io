@@ -1,0 +1,17 @@
+# Topics for the Insights section. These are themes, not published articles.
+# When you publish a piece, add:
+#   url: "https://your-link-here"
+#   date: "November 2026"
+# and the title becomes a link.
+
+- topic: "AI governance"
+  title: "What safe AI looks like in a contract review"
+  summary: "Where a person stays in the loop, what gets logged, and how to explain it to a regulator."
+
+- topic: "Human-first AI"
+  title: "Using AI without losing your voice"
+  summary: "Practical habits for small teams who want the speed without the sameness."
+
+- topic: "Thoughtful automation"
+  title: "Automate the routine, keep the judgment"
+  summary: "How to decide which steps a tool can own and which ones need you."

@@ -1,0 +1,29 @@
+# Featured work shown on the homepage. Add a project by copying a block.
+# art: horizon, arches, or blocks (conceptual artwork until you add real screenshots)
+# Leave skills out if you are not sure yet, and it will be hidden.
+
+- title: "QBO AP Reconciliation Agent"
+  url: "/projects/qbo-ap-reconciliation-agent.html"
+  category: "AI and automation"
+  description: "An AI agent that watches an inbox for invoice payment PDFs and reconciles them in QuickBooks Online, with guardrails that stop the run when something looks off."
+  skills:
+    - Python
+    - Gmail API
+    - Google Gemini
+    - QuickBooks Online API
+    - Automated testing
+  art: horizon
+
+- title: "Queer Art Glass website"
+  url: "/projects/queer-art-glass-website.html"
+  category: "Web development"
+  description: "A website for Queer Art Glass."
+  skills:
+    - Web development
+  art: arches
+
+- title: "Digital garden"
+  url: "/projects/digital-garden.html"
+  category: "Digital garden"
+  description: "A personal collection of notes and ideas that grows over time."
+  art: blocks

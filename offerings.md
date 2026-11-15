@@ -30,4 +30,4 @@ For individuals and small businesses who want to thrive with AI in a fast, extra
 - Right-sized tools and workflows for how you really work
 - Coaching that makes space for your pace and your values
 
-[Back to home](index.html) | Ready to talk? Email **YOUR-EMAIL-HERE**
+[Back to home](index.html) | Ready to talk? [Start a conversation](index.html#contact)

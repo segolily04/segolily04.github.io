@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title and page.title != "Home" %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{{ site.description }}">
+  <script>document.documentElement.className += ' js';</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
@@ -13,43 +14,94 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header dcs-inverse">
+  <header class="site-header">
     <div class="container site-header__inner">
-      <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      <nav class="site-nav" aria-label="Main">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/offerings.html' | relative_url }}">Offerings</a>
-        <a href="{{ '/' | relative_url }}#projects">Projects</a>
-      </nav>
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }}, home">
+        <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><circle cx="24" cy="19" r="9" fill="#D96F43"/><path d="M4 31c5-5 10-5 15 0s10 5 15 0c3-3 7-4 10-1" fill="none" stroke="#123552" stroke-width="3" stroke-linecap="round"/><path d="M4 40c5-5 10-5 15 0s10 5 15 0c3-3 7-4 10-1" fill="none" stroke="#123552" stroke-width="3" stroke-linecap="round"/></svg>
+        <span class="brand__text">
+          <span class="brand__name">{{ site.title }}</span>
+          <span class="brand__tag">Strategy · Technology · Human impact</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-menu">
+        <span class="nav-toggle__label">Menu</span>
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+      </button>
+
+      <div class="site-menu" id="site-menu">
+        <nav aria-label="Main">
+          <ul class="site-nav">
+            <li><a href="{{ '/' | relative_url }}#about">About</a></li>
+            <li><a href="{{ '/' | relative_url }}#capabilities">Capabilities</a></li>
+            <li><a href="{{ '/' | relative_url }}#work"{% if page.url contains '/projects/' %} aria-current="page"{% endif %}>Work</a></li>
+            <li><a href="{{ '/' | relative_url }}#insights">Insights</a></li>
+          </ul>
+        </nav>
+        <a class="btn btn--primary btn--sm site-cta" href="{{ '/' | relative_url }}#contact">Start a conversation</a>
+      </div>
     </div>
   </header>
 
-  {% if page.hero_title %}
-  <section class="hero dcs-inverse">
-    <div class="container">
-      {% if page.hero_eyebrow %}<p class="eyebrow">{{ page.hero_eyebrow }}</p>{% endif %}
-      <h1 class="type-display">{{ page.hero_title }} <em>{{ page.hero_accent }}</em></h1>
-      {% if page.hero_lede %}<p class="lede">{{ page.hero_lede }}</p>{% endif %}
-      <p class="hero__actions">
-        {% if page.hero_primary_text %}<a class="btn btn--primary" href="{{ page.hero_primary_url }}">{{ page.hero_primary_text }}</a>{% endif %}
-        {% if page.hero_secondary_text %}<a class="btn btn--outline" href="{{ page.hero_secondary_url | relative_url }}">{{ page.hero_secondary_text }}</a>{% endif %}
-      </p>
-    </div>
-  </section>
-  {% endif %}
-
+  {% if page.full_width %}
+  <main id="main">
+    {{ content }}
+  </main>
+  {% else %}
   <main id="main" class="main">
     <div class="container content">
       {{ content }}
     </div>
   </main>
+  {% endif %}
 
-  <footer class="site-footer dcs-inverse">
-    <div class="container site-footer__inner">
-      <p class="wordmark">{{ site.title }}</p>
-      <p class="site-footer__note">Thoughtful systems. Human impact.</p>
-      <p class="site-footer__links"><a href="https://github.com/segolily04">GitHub</a></p>
+  <footer class="site-footer" id="contact">
+    <div class="container site-footer__grid">
+      <div class="site-footer__brand">
+        <p class="site-footer__name">{{ site.title }}</p>
+        <p class="site-footer__tagline">Thoughtful systems. Human impact.</p>
+      </div>
+
+      <div class="site-footer__contact">
+        <h2 class="site-footer__heading">Start a conversation</h2>
+        <p>Tell me about the complicated thing you want to work better.</p>
+        <ul class="site-footer__links">
+          {% if site.email != "" %}<li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>{% endif %}
+          {% if site.linkedin != "" %}<li><a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+          {% if site.github != "" %}<li><a href="https://github.com/{{ site.github }}">GitHub</a></li>{% endif %}
+        </ul>
+      </div>
+
+      <nav class="site-footer__nav" aria-label="Footer">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}#about">About</a></li>
+          <li><a href="{{ '/' | relative_url }}#capabilities">Capabilities</a></li>
+          <li><a href="{{ '/' | relative_url }}#work">Work</a></li>
+          <li><a href="{{ '/' | relative_url }}#insights">Insights</a></li>
+          <li><a href="{{ '/offerings.html' | relative_url }}">Offerings</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="container site-footer__legal">
+      <p>&copy; 2026 Patricia Rodriguez</p>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('nav-toggle');
+      var menu = document.getElementById('site-menu');
+      if (!toggle || !menu) return;
+      function setOpen(open) {
+        menu.classList.toggle('is-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      }
+      toggle.addEventListener('click', function () { setOpen(!menu.classList.contains('is-open')); });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) { setOpen(false); toggle.focus(); }
+      });
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) setOpen(false); });
+    })();
+  </script>
 </body>
 </html>
