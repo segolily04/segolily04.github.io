@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title and page.title != "Home" %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header dcs-inverse">
+    <div class="container site-header__inner">
+      <a class="wordmark" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="{{ '/' | relative_url }}">Home</a>
+        <a href="{{ '/offerings.html' | relative_url }}">Offerings</a>
+        <a href="{{ '/' | relative_url }}#projects">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  {% if page.hero_title %}
+  <section class="hero dcs-inverse">
+    <div class="container">
+      {% if page.hero_eyebrow %}<p class="eyebrow">{{ page.hero_eyebrow }}</p>{% endif %}
+      <h1 class="type-display">{{ page.hero_title }} <em>{{ page.hero_accent }}</em></h1>
+      {% if page.hero_lede %}<p class="lede">{{ page.hero_lede }}</p>{% endif %}
+      <p class="hero__actions">
+        {% if page.hero_primary_text %}<a class="btn btn--primary" href="{{ page.hero_primary_url }}">{{ page.hero_primary_text }}</a>{% endif %}
+        {% if page.hero_secondary_text %}<a class="btn btn--outline" href="{{ page.hero_secondary_url | relative_url }}">{{ page.hero_secondary_text }}</a>{% endif %}
+      </p>
+    </div>
+  </section>
+  {% endif %}
+
+  <main id="main" class="main">
+    <div class="container content">
+      {{ content }}
+    </div>
+  </main>
+
+  <footer class="site-footer dcs-inverse">
+    <div class="container site-footer__inner">
+      <p class="wordmark">{{ site.title }}</p>
+      <p class="site-footer__note">Thoughtful systems. Human impact.</p>
+      <p class="site-footer__links"><a href="https://github.com/segolily04">GitHub</a></p>
+    </div>
+  </footer>
+</body>
+</html>

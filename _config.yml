@@ -1,4 +1,3 @@
-theme: jekyll-theme-cayman
 title: Patricia Rodriguez
 description: AI governance, automation, and financial systems for regulated and small businesses
-show_downloads: false
+markdown: kramdown
