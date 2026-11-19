@@ -23,26 +23,26 @@ body{margin:0;background:var(--warm);color:var(--navy);font-family:var(--sans);o
 .banner{position:relative;z-index:6;background:var(--navy);color:var(--warm);font-family:var(--hand);font-size:19px;text-align:center;padding:8px 16px;}
 
 /* ACT 1: the cluttered desk */
-.act1{position:relative;min-height:220vh;padding-top:30px;}
-.act1 .sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;}
-.lead{position:relative;z-index:6;text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,50px);color:var(--navy);margin:34px auto 0;line-height:1.02;max-width:18ch;padding:0 20px;}
+.act1{position:relative;min-height:220vh;padding-top:0;}
+.act1 .sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;
+  background:linear-gradient(180deg,#d8b88c,#c9a677 58%,#bb986a);}
+.act1 .sticky::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.14), transparent 60%);}
+.lead{position:relative;z-index:6;text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,48px);color:var(--navy);margin:0 auto;line-height:1.05;max-width:17ch;padding:0 20px;}
 .leadsub{position:relative;z-index:6;}
-.lead-hold{position:relative;z-index:6;padding-bottom:26px;}
-.lead-hold::after{content:"";position:absolute;left:50%;top:-20px;transform:translateX(-50%);width:min(680px,92vw);height:calc(100% + 30px);background:radial-gradient(ellipse at 50% 40%, var(--warm) 60%, transparent);z-index:-1;}
+/* headline sits centered on the mat, hidden under the clutter until you tidy */
+.lead-hold{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:6;width:min(600px,82vw);text-align:center;opacity:0;}
 .lead em{font-style:italic;color:var(--gold-deep);}
 .leadsub{text-align:center;font-family:var(--sans);color:var(--ochre-deep);letter-spacing:.14em;text-transform:uppercase;font-size:13px;margin-top:14px;}
 
 /* the desk: a wood surface with a work mat where things get tidied */
-.pan-wash{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:min(680px,90vw);height:440px;border-radius:12px;
-  background:linear-gradient(180deg,#d8b88c,#c9a677 70%,#bb986a);
-  box-shadow:0 28px 54px -20px rgba(43,42,40,.42), inset 0 2px 0 rgba(255,255,255,.25);z-index:0;}
-.pan-wash::after{content:"";position:absolute;inset:0;border-radius:12px;
-  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(120,85,45,.08));opacity:.6;}
-.pan-wash .ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  width:min(440px,64%);height:300px;border-radius:7px;border:none;
-  background:radial-gradient(ellipse at 50% 42%, var(--wash), #efe4cd 62%, #e9ddc2 80%);
-  box-shadow:inset 0 0 0 2px rgba(120,85,45,.18), 0 6px 14px -8px rgba(43,42,40,.3);}
-.pan-wash .ring.r2,.pan-wash .ring.r3{display:none;}
+/* the work mat (blotter) sits on the full desk, where things get tidied and the headline is revealed */
+.pan-wash{position:absolute;left:50%;top:52%;transform:translate(-50%,-50%);width:min(640px,84vw);height:480px;border-radius:9px;
+  background:radial-gradient(ellipse at 50% 42%, var(--wash), #efe4cd 64%, #e9ddc2 82%);
+  box-shadow:inset 0 0 0 2px rgba(120,85,45,.16), 0 12px 30px -14px rgba(43,42,40,.4);z-index:0;}
+.pan-wash::after{content:"";position:absolute;inset:0;border-radius:9px;
+  background:linear-gradient(180deg, rgba(255,255,255,.1), rgba(120,85,45,.04));opacity:.6;}
+.pan-wash .ring{display:none;}
 /* desk decor: pens, markers, a post-it pad, loose papers — they sweep away when you tidy */
 .decor{position:absolute;z-index:1;will-change:transform,opacity;}
 .decor.pen{width:112px;height:9px;border-radius:5px;background:linear-gradient(90deg,var(--navy) 70%,#c9a677 70%);box-shadow:2px 3px 0 rgba(43,42,40,.18);}
@@ -168,27 +168,28 @@ body{margin:0;background:var(--warm);color:var(--navy);font-family:var(--sans);o
 /* notebook shell */
 body{background:#d9c7b0;}
 .notebook{position:relative;max-width:1180px;margin:0 auto;padding:0;}
-.spiral{position:sticky;top:0;z-index:20;height:34px;background:linear-gradient(180deg,#cdb79c,#c2ac8f);display:flex;gap:26px;justify-content:center;align-items:flex-end;box-shadow:0 2px 6px rgba(43,42,40,.18);}
-.spiral .ring{width:14px;height:26px;border:3px solid #8a8070;border-bottom:none;border-radius:8px 8px 0 0;background:linear-gradient(90deg,#efe7d6,#b7ab93);margin-bottom:-2px;}
-.tabs{position:sticky;top:34px;z-index:19;height:0;}
-.tabs-inner{display:flex;gap:16px;justify-content:flex-end;padding:0 40px;transform:translateY(-16px);}
-.tab{position:relative;display:inline-block;padding:16px 20px 20px;font-family:var(--hand);font-size:20px;font-weight:600;color:var(--ink);text-decoration:none;border-radius:0 0 4px 4px;box-shadow:2px 4px 7px rgba(43,42,40,.2);transition:transform .18s cubic-bezier(.3,1.5,.5,1);cursor:pointer;border:none;}
-.tab:hover,.tab:focus-visible{transform:translateY(6px);}
-.tab[aria-current="true"]{transform:translateY(10px);}
+/* post-it nav stuck to the desk, top-right — no binding */
+.tabs{position:absolute;top:84px;right:40px;left:auto;z-index:20;}
+.tabs-inner{display:flex;gap:14px;justify-content:flex-end;padding:0;}
+.tab{position:relative;display:inline-block;padding:15px 20px;font-family:var(--hand);font-size:19px;font-weight:600;color:var(--ink);text-decoration:none;border-radius:2px;box-shadow:3px 6px 10px rgba(43,42,40,.26);transition:transform .16s cubic-bezier(.3,1.5,.5,1);cursor:pointer;border:none;}
+.tab.t-purple{transform:rotate(-3deg);}
+.tab.t-pink{transform:rotate(2deg);}
+.tab.t-blue{transform:rotate(-2deg);}
+.tab.t-yellow{transform:rotate(3deg);}
+.tab:hover,.tab:focus-visible{transform:translateY(4px) rotate(0deg);}
+.tab[aria-current="true"]{transform:translateY(4px) rotate(0deg);}
 .tab.t-purple{background:#C9A0E8;}
 .tab.t-pink{background:#F2A6C0;}
 .tab.t-blue{background:#A6D4EE;}
 .tab.t-yellow{background:#F4D35E;}
 .tab.t-cover{background:#E3E1DD;}
-.tabs-burger{display:none;position:absolute;right:20px;top:-14px;z-index:21;width:46px;height:46px;border-radius:0 0 6px 6px;background:#F4D35E;border:none;color:var(--ink);box-shadow:2px 4px 7px rgba(43,42,40,.2);cursor:pointer;align-items:center;justify-content:center;}
+.tabs-burger{display:none;position:absolute;right:0;top:0;z-index:21;width:46px;height:46px;border-radius:6px;background:#F4D35E;border:none;color:var(--ink);box-shadow:2px 4px 7px rgba(43,42,40,.2);cursor:pointer;align-items:center;justify-content:center;}
 
 @media (max-width:720px){
-  /* pin the binding + hamburger above everything, including the footer, while scrolling */
-  .spiral{position:fixed;left:0;right:0;top:0;z-index:60;}
-  .tabs{position:fixed;left:0;right:0;top:34px;z-index:61;height:0;}
-  .notebook{padding-top:34px;}
+  /* pin the hamburger above everything, including the footer, while scrolling */
+  .tabs{position:fixed;left:auto;right:16px;top:16px;z-index:61;}
   .tabs-burger{display:inline-flex;}
-  .tabs-inner{position:fixed;right:16px;top:44px;z-index:62;flex-direction:column;align-items:flex-end;gap:10px;padding:0;transform:none;background:none;
+  .tabs-inner{position:fixed;right:16px;top:70px;z-index:62;flex-direction:column;align-items:flex-end;gap:10px;padding:0;transform:none;background:none;
     opacity:0;pointer-events:none;transform-origin:top right;scale:.96;transition:opacity .18s ease,scale .18s ease;}
   .tabs.open .tabs-inner{opacity:1;pointer-events:auto;scale:1;}
   .tabs .tab{border-radius:4px;box-shadow:3px 4px 0 rgba(43,42,40,.2);padding:12px 18px 14px;}
@@ -196,16 +197,22 @@ body{background:#d9c7b0;}
   .tabs .tab:nth-child(2){transform:rotate(2deg);}
   .tabs .tab:nth-child(3){transform:rotate(-2deg);}
   .tabs .tab[aria-current="true"]{transform:none;}
+
+  /* raise the whole scene so it sits just under the nav, not low with a big gap */
+  .pan-wash{top:46%;height:440px;width:90vw;}
+  .lead-hold{top:34%;width:88vw;}
+  .lead{font-size:clamp(24px,7vw,34px);}
+  .site-head{padding-top:14px;}
+  /* keep the clutter pile on the mat instead of spilling low and right */
+  .scatter{top:100px;height:620px;transform:scale(.82);transform-origin:50% 42%;}
 }
 
 /* pages: the cover (pan) plus flip-in section pages */
-.page-cover{position:relative;z-index:1;background:var(--warm);}
+.page-cover{position:relative;z-index:1;background:linear-gradient(180deg,#d8b88c,#d8b88c);}
 .flip-page{position:fixed;inset:0;z-index:30;background:var(--warm);overflow-y:auto;transform:perspective(2200px) rotateX(-92deg);transform-origin:top center;opacity:0;pointer-events:none;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .3s ease;}
 .flip-page.open{transform:perspective(2200px) rotateX(0);opacity:1;pointer-events:auto;}
 .flip-page{will-change:transform;}
 .flip-page__inner{max-width:900px;margin:0 auto;padding:60px 28px 90px;min-height:100%;}
-.flip-page .pg-spiral{position:sticky;top:0;height:30px;background:linear-gradient(180deg,#cdb79c,#c2ac8f);display:flex;gap:24px;justify-content:center;align-items:flex-end;margin:-60px -28px 40px;}
-.flip-page .pg-spiral .ring{width:12px;height:22px;border:3px solid #8a8070;border-bottom:none;border-radius:7px 7px 0 0;background:linear-gradient(90deg,#efe7d6,#b7ab93);margin-bottom:-2px;}
 .pg-eyebrow{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ochre-deep);}
 .pg-title{font-family:var(--serif);font-size:var(--fluid-display,clamp(2.5rem,6vw,4.5rem));line-height:1;margin:10px 0 0;color:var(--navy);}
 .pg-lead{font-size:var(--fluid-body-lg);line-height:1.6;margin:20px 0 0;max-width:60ch;color:var(--text-primary);}
@@ -227,7 +234,7 @@ body{background:#d9c7b0;}
 
 /* header: logo + sticky-note nav */
 .site-head{position:relative;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1100px;margin:0 auto;padding:18px 28px 8px;}
-.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy);}
+.logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy);background:rgba(251,243,235,.82);padding:9px 16px;border-radius:9px;box-shadow:0 4px 12px -4px rgba(43,42,40,.3);}
 .logo__mark{display:inline-flex;width:44px;height:44px;flex:none;}
 .logo__mark img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
 .logo__mark svg{width:100%;height:100%;}
@@ -274,9 +281,6 @@ body{background:#d9c7b0;}
 
 <div class="flip-stage">
 <div class="notebook" id="top">
-  <div class="spiral" aria-hidden="true">
-    <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
-  </div>
   <div class="tabs">
     <button class="tabs-burger" id="tabsBurger" type="button" aria-expanded="false" aria-controls="tabsInner" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -421,7 +425,6 @@ body{background:#d9c7b0;}
 
   <div class="flip-page" id="page-insights" role="region" aria-label="Insights">
     <div class="flip-page__inner">
-      <div class="pg-spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">From the notebook</p>
       <h2 class="pg-title">Insights</h2>
@@ -432,7 +435,6 @@ body{background:#d9c7b0;}
 
   <div class="flip-page" id="page-projects" role="region" aria-label="Projects">
     <div class="flip-page__inner">
-      <div class="pg-spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">Selected work</p>
       <h2 class="pg-title">Projects</h2>
@@ -443,7 +445,6 @@ body{background:#d9c7b0;}
 
   <div class="flip-page" id="page-offerings" role="region" aria-label="Offerings">
     <div class="flip-page__inner">
-      <div class="pg-spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">Ways to work together</p>
       <h2 class="pg-title">Offerings</h2>
@@ -493,7 +494,6 @@ body{background:#d9c7b0;}
 
   <div class="flip-page" id="page-contact" role="region" aria-label="Contact me">
     <div class="flip-page__inner">
-      <div class="pg-spiral" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">Let's talk</p>
       <h2 class="pg-title">Contact me</h2>
@@ -548,12 +548,13 @@ body{background:#d9c7b0;}
   const decorRot=decor.map(s=>parseFloat((s.style.transform.match(/rotate\(([-\d.]+)deg\)/)||[,0])[1]));
 
   const act1=document.getElementById('act1');
+  const leadHold=document.querySelector('.lead-hold');
   // pan centre as a fraction of the sticky viewport; nuggets gather into a tidy row there
   function geom(){
     const w=document.querySelector('.pan-wash').getBoundingClientRect();
     return {cx:w.left+w.width/2, cy:w.top+w.height*0.52};
   }
-  const rowGap=185; // spacing of the settled treasure row (tighter = more centered)
+  const rowGap=innerWidth<=720?110:185; // settled treasure row spacing; tighter on mobile to fit the mat
   function onScroll(){
     if(reduce)return;
     const r=act1.getBoundingClientRect();
@@ -583,7 +584,7 @@ body{background:#d9c7b0;}
     gold.forEach((gEl,i)=>{
       const base=gEl;
       const startX=base.offsetLeft+base.offsetWidth/2;
-      const gx=g.cx+(i-1)*rowGap, gy=g.cy-92;
+      const gx=g.cx+(i-1)*rowGap, gy=g.cy+58;
       const gatherX=(gx-stickyRect.left)-startX;
       const gatherY=(gy-stickyRect.top)-base.offsetTop;
       const jig=Math.sin((p*7)+i)*(1-e)*5;
@@ -591,6 +592,13 @@ body{background:#d9c7b0;}
       gEl.style.opacity=`1`;
       if(e>0.55&&e<0.85)gEl.classList.add('lit');else gEl.classList.remove('lit');
     });
+    // headline revealed as the clutter clears: fades up and unwipes on the cleared mat
+    if(leadHold){
+      const rv=Math.min(1,Math.max(0,(p-0.30)/0.42));
+      leadHold.style.opacity=rv.toFixed(2);
+      leadHold.style.clipPath=`inset(0 ${((1-rv)*100).toFixed(1)}% 0 0)`;
+      leadHold.style.transform=`translate(-50%,calc(-50% + ${((1-rv)*14).toFixed(1)}px))`;
+    }
   }
   addEventListener('scroll',onScroll,{passive:true});
   addEventListener('resize',onScroll,{passive:true});onScroll();
