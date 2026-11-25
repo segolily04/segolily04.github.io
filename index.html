@@ -25,6 +25,14 @@
   --wash:#E7D9BE; --ink:#2B2A28; --mist-blue:#7FB2D6; --mist-blue-deep:#2C5F82;
   --text-primary:#2B2A28; --text-secondary:#5A5245; --sage-deep:#3A4F3D;
   --fluid-body-lg:clamp(17px,1.9vw,20px);
+  /* DESK PHOTO SLOT
+     To use a real photo of the desk: save it as assets/img/desk-photo.jpg
+     (landscape, about 2000px wide, ideally under 300 KB), then change "none" on the
+     next line to: url("assets/img/desk-photo.jpg")
+     Leave it as none to keep the drawn wooden desk. --desk-photo-pos picks which part
+     of the photo stays in view on narrow screens (e.g. "30% 50%"). */
+  --desk-photo:none;
+  --desk-photo-pos:center;
   --sans:"DM Sans",system-ui,sans-serif; --serif:"DM Serif Display",Georgia,serif; --hand:"Architects Daughter","Segoe Print","Comic Sans MS",cursive;
 }
 *{box-sizing:border-box;}
@@ -34,9 +42,34 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 /* ACT 1: the cluttered desk */
 .act1{position:relative;min-height:220vh;padding-top:0;}
 .act1 .sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;flex-direction:column;
-  background:linear-gradient(180deg,#d8b88c,#c9a677 58%,#bb986a);}
-.act1 .sticky::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(120% 80% at 50% 0%, rgba(255,255,255,.14), transparent 60%);}
+  /* the drawn desk: lamp glow top-left, soft vignette, fine wood grain, warm oak */
+  background:
+    radial-gradient(55% 48% at 6% 0%, rgba(255,212,145,.55), transparent 70%),
+    radial-gradient(130% 80% at 50% 118%, rgba(70,40,18,.32), transparent 62%),
+    repeating-linear-gradient(178.5deg, rgba(120,78,40,.07) 0 1px, transparent 1px 7px, rgba(120,78,40,.045) 7px 9px, transparent 9px 21px),
+    linear-gradient(180deg,#dbb98a,#caa575 58%,#b98f5e);}
+.act1 .sticky::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.35;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");}
+/* real desk photo, when one is set in --desk-photo; sits over the drawn desk */
+.desk-photo{position:absolute;inset:0;z-index:0;pointer-events:none;background:var(--desk-photo) var(--desk-photo-pos)/cover no-repeat;filter:saturate(.92) brightness(.94);}
+/* clean parchment rises from the bottom as the desk clears */
+.parchment{position:absolute;left:0;right:0;bottom:0;height:72%;z-index:0;pointer-events:none;
+  background:linear-gradient(to top,var(--linen) 0%,var(--linen) 34%,rgba(243,234,220,.85) 58%,rgba(243,234,220,0) 100%);
+  transform:translateY(calc((1 - var(--tidy,0)) * 100%));}
+/* gold and lavender ribbons, drawn in as you tidy; they pass under the mat */
+.ribbons{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;overflow:visible;}
+.ribbons path{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;}
+.ribbons .r-gold{stroke:var(--gold);stroke-width:3;opacity:.85;}
+.ribbons .r-lav{stroke:#C9A0E8;stroke-width:9;opacity:.55;}
+.ribbons .r-lav-thin{stroke:#B57BE0;stroke-width:2;opacity:.6;}
+/* scroll cue */
+.scroll-cue{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:7;display:flex;flex-direction:column;align-items:center;gap:7px;padding:10px 16px 9px;border-radius:999px;background:rgba(251,243,235,.86);box-shadow:0 4px 14px -6px rgba(43,42,40,.35);font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--navy);white-space:nowrap;pointer-events:none;}
+.scroll-cue .mouse{position:relative;width:18px;height:27px;border:2px solid var(--navy);border-radius:10px;}
+.scroll-cue .mouse i{position:absolute;left:50%;top:5px;width:3px;height:6px;margin-left:-1.5px;border-radius:2px;background:var(--gold-deep);animation:cue 1.8s ease-in-out infinite;}
+@keyframes cue{0%,20%{transform:translateY(0);opacity:1}70%{transform:translateY(8px);opacity:0}100%{transform:translateY(0);opacity:0}}
+/* small ruled ornament with a sparkle, used under headlines */
+.rule{display:flex;align-items:center;justify-content:center;gap:12px;max-width:260px;margin:16px auto 0;color:var(--gold);font-size:14px;line-height:1;}
+.rule::before,.rule::after{content:"";flex:1;height:1.5px;background:currentColor;opacity:.75;}
 .lead{position:relative;z-index:6;text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,48px);color:var(--navy);margin:0 auto;line-height:1.05;max-width:17ch;padding:0 20px;}
 .leadsub{position:relative;z-index:6;}
 /* headline sits centered on the mat, hidden under the clutter until you tidy */
@@ -50,7 +83,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   background:radial-gradient(ellipse at 50% 42%, var(--wash), #efe4cd 64%, #e9ddc2 82%);
   box-shadow:inset 0 0 0 2px rgba(120,85,45,.16), 0 12px 30px -14px rgba(43,42,40,.4);z-index:0;}
 .pan-wash::after{content:"";position:absolute;inset:0;border-radius:9px;
-  background:linear-gradient(180deg, rgba(255,255,255,.1), rgba(120,85,45,.04));opacity:.6;}
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"), linear-gradient(180deg, rgba(255,255,255,.1), rgba(120,85,45,.04));opacity:.7;}
 /* desk decor: pens, markers, a post-it pad, loose papers — they sweep away when you tidy */
 .decor{position:absolute;z-index:1;will-change:transform,opacity;}
 .decor.pen{width:112px;height:9px;border-radius:5px;background:linear-gradient(90deg,var(--navy) 70%,#c9a677 70%);box-shadow:2px 3px 0 rgba(43,42,40,.18);}
@@ -72,42 +105,19 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .scrap.note{background:var(--purple);color:#fff;}
 .scrap.gravel{background:transparent;color:#9a958c;font-size:clamp(16px,2.4vw,22px);line-height:1.05;}
 
-/* treasures: three distinct desk objects you uncover while tidying — a folder, a notebook, a chip */
+/* treasures: three line-icon objects you uncover while tidying — a folder, a laptop with a heart, a gem */
 .gold{position:absolute;z-index:5;width:98px;font-family:var(--hand);text-align:center;will-change:transform;}
 .gold .nugget{display:block;width:86px;height:80px;margin:0 auto;position:relative;transition:filter .4s ease, opacity .4s ease;}
-.gold label{display:block;margin-top:10px;color:var(--gold-deep);font-size:16px;transition:opacity .3s ease;}
+.gold figcaption{display:block;margin-top:10px;color:var(--gold-deep);font-size:16px;transition:opacity .3s ease;}
 /* warm glow behind a lit treasure */
 .gold .nugget::before{content:"";position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:50%;z-index:-1;opacity:0;background:radial-gradient(circle, rgba(228,179,99,.55), transparent 68%);transition:opacity .5s ease;}
 .gold.lit .nugget::before{opacity:1;}
 .gold.lit .nugget{filter:drop-shadow(0 8px 16px rgba(154,107,18,.4));}
-.gold.spent .nugget,.gold.spent label{opacity:0;}
+.gold .nugget svg{display:block;width:100%;height:100%;overflow:visible;}
 
-/* 1 — FOLDER */
-.nugget.folder{background:linear-gradient(#f0c57a,#e0ad5a);border:2px solid var(--ink);border-radius:3px 8px 6px 6px;}
-.nugget.folder::after{content:"";position:absolute;left:12px;top:-12px;width:38px;height:14px;background:#f0c57a;border:2px solid var(--ink);border-bottom:none;border-radius:4px 4px 0 0;}
-.nugget.folder i{position:absolute;left:12px;right:12px;top:26px;height:3px;background:rgba(43,42,40,.35);box-shadow:0 11px 0 rgba(43,42,40,.25),0 22px 0 rgba(43,42,40,.18);border-radius:2px;}
-/* 2 — NOTEBOOK */
-.nugget.book{background:linear-gradient(100deg,#9a5a3c,#b56a44);border:2px solid var(--ink);border-radius:4px;}
-.nugget.book::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:7px;background:repeating-linear-gradient(#f3ead9 0 4px,#cdbfa6 4px 7px);border-right:2px solid var(--ink);z-index:0;}
-.nugget.book i{position:absolute;top:50%;left:58%;right:14px;height:14px;transform:translateY(-50%);background:var(--sage);border:2px solid var(--ink);border-radius:2px;}
-/* 3 — CHIP */
-.nugget.chip{background:linear-gradient(#3d5a4a,#4c6650);border:2px solid var(--ink);border-radius:5px;}
-.nugget.chip i{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:30px;height:30px;border:2px solid var(--ink);border-radius:3px;background:#dca84b;}
-.nugget.chip i::before,.nugget.chip i::after{content:"";position:absolute;top:5px;width:14px;height:3px;background:var(--ochre);box-shadow:0 9px 0 var(--ochre),0 18px 0 var(--ochre);}
-.nugget.chip i::before{left:-16px;}
-.nugget.chip i::after{right:-16px;}
-/* ghost nugget that falls from the pan into each drawer's dot */
+/* ghost treasure that falls from the mat into each drawer's corner */
 .ghost-nugget{position:fixed;left:0;top:0;width:40px;height:38px;z-index:6;pointer-events:none;opacity:0;}
-.ghost-nugget::after,.ghost-nugget::before,.ghost-nugget i{position:absolute;}
-/* folder */
-.ghost-nugget.t-folder{background:linear-gradient(#f0c57a,#e0ad5a);border:2px solid var(--ink);border-radius:2px 5px 4px 4px;}
-.ghost-nugget.t-folder::after{content:"";left:5px;top:-6px;width:17px;height:7px;background:#f0c57a;border:2px solid var(--ink);border-bottom:none;border-radius:2px 2px 0 0;}
-/* notebook */
-.ghost-nugget.t-book{background:linear-gradient(100deg,#9a5a3c,#b56a44);border:2px solid var(--ink);border-radius:3px;}
-.ghost-nugget.t-book::before{content:"";left:5px;top:4px;bottom:4px;width:4px;background:repeating-linear-gradient(#f3ead9 0 2px,#cdbfa6 2px 4px);border-right:2px solid var(--ink);}
-/* chip */
-.ghost-nugget.t-chip{background:linear-gradient(#3d5a4a,#4c6650);border:2px solid var(--ink);border-radius:3px;}
-.ghost-nugget.t-chip i{left:50%;top:50%;transform:translate(-50%,-50%);width:15px;height:15px;border:2px solid var(--ink);border-radius:2px;background:#dca84b;}
+.ghost-nugget svg{display:block;width:100%;height:100%;overflow:visible;}
 
 /* eight cards, piled tightly together in the middle of the desk */
 #g1{left:30%;top:20%;width:168px;height:194px;transform:rotate(-9deg);z-index:2;}
@@ -124,10 +134,10 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 #n3{left:56%;top:32%;}
 
 /* ACT 2: the map (the gold, laid out) */
-.act2{position:relative;z-index:2;padding:30px 0 90px;background:linear-gradient(180deg,transparent,var(--linen) 80px);}
+.act2{position:relative;z-index:2;padding:30px 0 90px;background:var(--linen);}
 .wrap{max-width:1000px;margin:0 auto;padding:0 28px;}
 .settle-head{text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,50px);color:var(--navy);margin:0;}
-.settle-sub{text-align:center;font-family:var(--hand);font-size:clamp(20px,3vw,28px);color:var(--gold-deep);margin:8px 0 46px;}
+.settle-sub{text-align:center;font-family:var(--hand);font-size:clamp(20px,3vw,28px);color:var(--gold-deep);margin:12px 0 46px;}
 
 /* specimen drawers: each grows out of its gold dot as it settles, no pop-in */
 .drawers{margin-top:20px;display:grid;gap:18px;}
@@ -163,46 +173,38 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   html{scroll-behavior:auto;}
   .scrap,.gold{transition:none!important;}
   .lead-hold{opacity:1;}
+  .scroll-cue .mouse i{animation:none;}
   .drawer{opacity:1;transform:none;}
 }
 
+:focus-visible{outline:3px solid var(--gold-deep);outline-offset:3px;}
+.site-foot :focus-visible{outline-color:var(--ochre);}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;}
 /* notebook shell */
-.notebook{position:relative;max-width:1180px;margin:0 auto;padding:0;}
-/* post-it nav stuck to the desk, top-right — no binding */
-.tabs{position:absolute;top:84px;right:40px;left:auto;z-index:20;}
-.tabs-inner{display:flex;gap:14px;justify-content:flex-end;padding:0;}
-.tab{position:relative;display:inline-block;padding:15px 20px;font-family:var(--hand);font-size:19px;font-weight:600;color:var(--ink);text-decoration:none;border-radius:2px;box-shadow:3px 6px 10px rgba(43,42,40,.26);transition:transform .16s cubic-bezier(.3,1.5,.5,1);cursor:pointer;border:none;}
-.tab.t-purple{transform:rotate(-3deg);}
-.tab.t-pink{transform:rotate(2deg);}
-.tab.t-blue{transform:rotate(-2deg);}
-.tab.t-yellow{transform:rotate(3deg);}
-.tab:hover,.tab:focus-visible{transform:translateY(4px) rotate(0deg);}
-.tab[aria-current="true"]{transform:translateY(4px) rotate(0deg);}
-.tab.t-purple{background:#C9A0E8;}
-.tab.t-pink{background:#F2A6C0;}
-.tab.t-blue{background:#A6D4EE;}
-.tab.t-yellow{background:#F4D35E;}
-.tabs-burger{display:none;position:absolute;right:0;top:0;z-index:21;width:46px;height:46px;border-radius:6px;background:#F4D35E;border:none;color:var(--ink);box-shadow:2px 4px 7px rgba(43,42,40,.2);cursor:pointer;align-items:center;justify-content:center;}
+.notebook{position:relative;margin:0;padding:0;}
+/* nav: editorial text links in a parchment pill, fixed top-right so it stays reachable */
+.tabs{position:fixed;top:18px;right:24px;z-index:40;}
+.tabs-inner{display:flex;gap:2px;align-items:center;padding:5px;background:rgba(251,243,235,.92);border-radius:999px;box-shadow:0 4px 14px -6px rgba(43,42,40,.35);}
+.tab{display:inline-flex;align-items:center;min-height:40px;padding:0 16px;font:500 13px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--navy);text-decoration:none;background:none;border:0;border-radius:999px;cursor:pointer;transition:background-color .15s ease,color .15s ease;}
+.tab:hover{background:rgba(217,165,32,.18);}
+.tab[aria-current="true"]{background:var(--navy);color:var(--warm);}
+.tabs-burger{display:none;width:46px;height:46px;border-radius:999px;background:rgba(251,243,235,.92);border:0;color:var(--navy);box-shadow:0 4px 14px -6px rgba(43,42,40,.35);cursor:pointer;align-items:center;justify-content:center;}
 
 @media (max-width:720px){
-  /* pin the hamburger above everything, including the footer, while scrolling */
-  .tabs{position:fixed;left:auto;right:16px;top:16px;z-index:61;}
+  .tabs{top:16px;right:16px;}
   .tabs-burger{display:inline-flex;}
-  .tabs-inner{position:fixed;right:16px;top:70px;z-index:62;flex-direction:column;align-items:flex-end;gap:10px;padding:0;transform:none;background:none;
-    opacity:0;pointer-events:none;transform-origin:top right;scale:.96;transition:opacity .18s ease,scale .18s ease;}
-  .tabs.open .tabs-inner{opacity:1;pointer-events:auto;scale:1;}
-  .tabs .tab{border-radius:4px;box-shadow:3px 4px 0 rgba(43,42,40,.2);padding:12px 18px 14px;}
-  .tabs .tab:nth-child(1){transform:rotate(-3deg);}
-  .tabs .tab:nth-child(2){transform:rotate(2deg);}
-  .tabs .tab:nth-child(3){transform:rotate(-2deg);}
-  .tabs .tab[aria-current="true"]{transform:none;}
+  /* the closed menu is hidden from keyboard and screen readers too, not just faded out */
+  .tabs-inner{position:fixed;right:16px;top:70px;flex-direction:column;align-items:stretch;gap:2px;padding:8px;border-radius:14px;min-width:210px;background:var(--warm);
+    opacity:0;visibility:hidden;pointer-events:none;transform-origin:top right;scale:.96;transition:opacity .18s ease,scale .18s ease,visibility 0s linear .18s;}
+  .tabs.open .tabs-inner{opacity:1;visibility:visible;pointer-events:auto;scale:1;transition:opacity .18s ease,scale .18s ease;}
+  .tab{min-height:48px;padding:0 18px;font-size:14px;border-radius:10px;}
 
   /* raise the whole scene so it sits just under the nav, not low with a big gap */
   .pan-wash{top:46%;height:440px;width:90vw;}
   .lead-hold{top:34%;width:88vw;}
   .lead{font-size:clamp(24px,7vw,34px);}
   .site-head{padding-top:14px;}
+  .scroll-cue{bottom:18px;}
   /* keep the clutter pile on the mat instead of spilling low and right */
   .scatter{top:100px;height:620px;transform:scale(.82);transform-origin:50% 42%;}
 }
@@ -232,8 +234,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .offer-close{margin-top:34px;font-family:var(--hand);font-size:22px;color:var(--ochre-deep);max-width:52ch;}
 @media (prefers-reduced-motion:reduce){ .flip-page{transition:opacity .2s ease;transform:none;} }
 
-/* header: logo + sticky-note nav */
-.site-head{position:relative;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;max-width:1100px;margin:0 auto;padding:18px 28px 8px;}
+/* header: logo floats over the top-left of the desk */
+.site-head{position:absolute;top:0;left:0;right:0;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 24px 8px;pointer-events:none;}
+.site-head .logo{pointer-events:auto;}
 .logo{display:inline-flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy);background:rgba(251,243,235,.82);padding:9px 16px;border-radius:9px;box-shadow:0 4px 12px -4px rgba(43,42,40,.3);}
 .logo__mark{display:inline-flex;width:44px;height:44px;flex:none;}
 .logo__mark img{width:100%;height:100%;object-fit:contain;border-radius:50%;}
@@ -267,6 +270,27 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 </style>
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico-folder" viewBox="0 0 86 80">
+    <path d="M9 14h22l6 7h40v47H9z" fill="#D9A24A" stroke="#123552" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M6 29h74l-3.5 39h-67z" fill="#F0C57A" stroke="#123552" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M19 43h48M19 53h32" stroke="#123552" stroke-width="2" stroke-linecap="round" opacity=".45"/>
+  </symbol>
+  <symbol id="ico-laptop" viewBox="0 0 86 80">
+    <rect x="15" y="12" width="56" height="40" rx="3.5" fill="#123552"/>
+    <rect x="19.5" y="16.5" width="47" height="31" rx="1.5" fill="#C9A0E8"/>
+    <path d="M43 43C31 35 32 24 38.5 24c2.6 0 4.5 2.4 4.5 2.4s1.9-2.4 4.5-2.4C54 24 55 35 43 43z" fill="#F0C57A" stroke="#123552" stroke-width="1.8" stroke-linejoin="round"/>
+    <path d="M7 56h72l-5 9H12z" fill="#F3EADC" stroke="#123552" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M36 60.5h14" stroke="#123552" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-gem" viewBox="0 0 86 80">
+    <path d="M24 14h38l15 17-34 39L9 31z" fill="#E7D2F5"/>
+    <path d="M33 31l10-17 10 17z" fill="#F0C57A"/>
+    <path d="M9 31l34 39-10-39z" fill="#C9A0E8"/>
+    <path d="M24 14h38l15 17-34 39L9 31z" fill="none" stroke="#123552" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M9 31h68M24 14l9 17 10-17 10 17 9-17M33 31l10 39 10-39" fill="none" stroke="#123552" stroke-width="1.8" stroke-linejoin="round"/>
+  </symbol>
+</svg>
 
 <div class="flip-stage">
 <div class="notebook" id="top">
@@ -274,11 +298,11 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     <button class="tabs-burger" id="tabsBurger" type="button" aria-expanded="false" aria-controls="tabsInner" aria-label="Open menu">
       <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
-    <nav class="tabs-inner" id="tabsInner" aria-label="Notebook pages">
-      <button class="tab t-purple" data-page="insights" aria-current="false">Insights</button>
-      <button class="tab t-pink" data-page="projects" aria-current="false">Projects</button>
-      <button class="tab t-blue" data-page="offerings" aria-current="false">Offerings</button>
-      <button class="tab t-yellow" data-page="contact" aria-current="false">Contact me</button>
+    <nav class="tabs-inner" id="tabsInner" aria-label="Main">
+      <a class="tab" href="#work">Work</a>
+      <button class="tab" data-page="insights" aria-current="false">Insights</button>
+      <button class="tab" data-page="offerings" aria-current="false">Offerings</button>
+      <button class="tab" data-page="contact" aria-current="false">Contact</button>
     </nav>
   </div>
 
@@ -297,10 +321,20 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   <div class="sticky">
     <div class="lead-hold">
       <p class="lead" id="act1-heading">A cluttered desk, <em>tidied,</em> and the treasures surface.</p>
+      <span class="rule" aria-hidden="true">&#10022;</span>
       <p class="leadsub">order from chaos · found in the void · beauty in the details</p>
     </div>
 
+    <div class="desk-photo" aria-hidden="true"></div>
+    <div class="parchment" aria-hidden="true"></div>
+    <svg class="ribbons" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <path class="r-lav" pathLength="1" d="M-30 505C140 425 270 600 450 535S740 420 860 500 980 575 1040 470"/>
+      <path class="r-gold" pathLength="1" d="M-30 470C150 385 260 565 430 500S705 385 830 470 965 560 1040 430"/>
+      <path class="r-lav-thin" pathLength="1" d="M-30 150C70 115 120 215 215 180S330 95 360 40"/>
+      <path class="r-gold" pathLength="1" d="M1040 120C950 95 905 190 820 165S700 70 680 20"/>
+    </svg>
     <div class="pan-wash" aria-hidden="true"></div>
+    <div class="scroll-cue" aria-hidden="true"><span class="mouse"><i></i></span>Scroll to discover</div>
 
     <div class="scatter" id="scatter" aria-hidden="true">
       <figure class="scrap silt" id="g1"><img class="ph" src="assets/img/desk-doodles.jpg" width="560" height="560" decoding="async" alt="character doodles"><small>doodles</small></figure>
@@ -312,9 +346,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
       <figure class="scrap silt" id="g7"><img class="ph" src="assets/img/desk-flowchart.jpg" width="560" height="560" decoding="async" alt="a workflow flowchart"><small>a flowchart</small></figure>
       <figure class="scrap silt" id="g8"><img class="ph" src="assets/img/desk-flyer.jpg" width="560" height="560" decoding="async" alt="a class flyer"><small>a flyer</small></figure>
 
-      <figure class="gold" id="n1"><span class="nugget folder"><i></i></span><label>order from chaos</label></figure>
-      <figure class="gold" id="n2"><span class="nugget book"><i></i></span><label>found in the void</label></figure>
-      <figure class="gold" id="n3"><span class="nugget chip"><i></i></span><label>beauty in the details</label></figure>
+      <figure class="gold" id="n1"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-folder"/></svg></span><figcaption>order from chaos</figcaption></figure>
+      <figure class="gold" id="n2"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-laptop"/></svg></span><figcaption>found in the void</figcaption></figure>
+      <figure class="gold" id="n3"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-gem"/></svg></span><figcaption>beauty in the details</figcaption></figure>
 
       <!-- desk decor: sweeps away when you tidy -->
       <span class="decor pen" style="left:16%;top:30%;transform:rotate(-24deg);"></span>
@@ -329,9 +363,10 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   </div>
 </section>
 
-<section class="act2">
+<section class="act2" id="work">
   <div class="wrap">
     <h2 class="settle-head">What you uncover becomes the work.</h2>
+    <span class="rule" aria-hidden="true">&#10022;</span>
     <p class="settle-sub">open a drawer to see its full story</p>
 
     <div class="drawers" id="drawers">
@@ -423,16 +458,6 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     </div>
   </div>
 
-  <div class="flip-page" id="page-projects" role="region" aria-label="Projects">
-    <div class="flip-page__inner">
-      <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
-      <p class="pg-eyebrow">Selected work</p>
-      <h2 class="pg-title">Projects</h2>
-      <p class="pg-lead">The full stories behind the work: Queer Art Glass, a stained glass studio built from nothing, an AI agent that reconciles invoices on its own, and more as I add them.</p>
-      <div class="pg-soon">More project pages are on the way. For now, tidy the desk up top and watch the work settle into its drawers.</div>
-    </div>
-  </div>
-
   <div class="flip-page" id="page-offerings" role="region" aria-label="Offerings">
     <div class="flip-page__inner">
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
@@ -513,10 +538,10 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
       </div>
     </div>
     <nav class="foot-nav" aria-label="Footer">
+      <a href="#work">Work</a>
       <a href="#insights" data-page="insights">Insights</a>
-      <a href="#projects" data-page="projects">Projects</a>
       <a href="#offerings" data-page="offerings">Offerings</a>
-      <a href="#contact" data-page="contact">Contact me</a>
+      <a href="#contact" data-page="contact">Contact</a>
     </nav>
     <div class="foot-social">
       <a href="https://www.linkedin.com/in/pat-rod-slc">LinkedIn</a>
@@ -543,6 +568,8 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   const stickyEl=document.querySelector('.sticky');
   const drawerEls=[...document.querySelectorAll('.drawer')];
   const stack=document.getElementById('drawers');
+  const cue=document.querySelector('.scroll-cue');
+  const ribbons=[...document.querySelectorAll('.ribbons path')];
 
   /* Layout values that only change on resize. Measured here once instead of on every
      scroll event, so the scroll path reads one or two rects and then only writes styles. */
@@ -584,6 +611,11 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
       gEl.style.transform=`translate(${gatherX*e+jig}px,${gatherY*e}px) scale(${0.9+e*0.1})`;
       gEl.classList.toggle('lit',!reduce&&e>0.55&&e<0.85);
     });
+    // parchment washes up, ribbons draw in, the scroll cue bows out
+    stickyEl.style.setProperty('--tidy',e.toFixed(3));
+    const draw=Math.min(1,Math.max(0,(p-0.12)/0.6));
+    ribbons.forEach(r=>r.style.strokeDashoffset=(1-draw).toFixed(3));
+    if(cue)cue.style.opacity=Math.max(0,1-p*5).toFixed(2);
     // headline revealed as the clutter clears: fades up and unwipes on the cleared mat
     if(leadHold){
       const rv=Math.min(1,Math.max(0,(p-0.30)/0.42));
@@ -596,10 +628,10 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   /* Handoff: driven by each drawer's live position as it scrolls up into view.
      A ghost nugget rides from the pan row down into each drawer's gold dot, while the
      drawer grows from that dot. One continuous object, measured in live viewport coords. */
-  const ghostKinds=['t-folder','t-book','t-chip'];
+  const ghostIcons=['ico-folder','ico-laptop','ico-gem'];
   const ghosts=reduce?[]:drawerEls.map((d,i)=>{
-    const n=document.createElement('span'); n.className='ghost-nugget '+(ghostKinds[i]||'t-folder');
-    if(ghostKinds[i]==='t-chip'){n.appendChild(document.createElement('i'));}
+    const n=document.createElement('span'); n.className='ghost-nugget'; n.setAttribute('aria-hidden','true');
+    n.innerHTML=`<svg viewBox="0 0 86 80" focusable="false"><use href="#${ghostIcons[i]||'ico-folder'}"/></svg>`;
     document.body.appendChild(n); return n;
   });
   function renderHandoff(sr,crops){
@@ -673,7 +705,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 <script>
 (function(){
   const tabs=[...document.querySelectorAll('.tab[data-page]')];
-  const pages={insights:document.getElementById('page-insights'),projects:document.getElementById('page-projects'),offerings:document.getElementById('page-offerings'),contact:document.getElementById('page-contact')};
+  const pages={insights:document.getElementById('page-insights'),offerings:document.getElementById('page-offerings'),contact:document.getElementById('page-contact')};
   let openKey=null;
   const cover=document.querySelector('.page-cover');
   function closePage(){
@@ -707,6 +739,8 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   tabs.forEach(t=>t.addEventListener('click',()=>{ setMenu(false); openKey===t.dataset.page?closePage():openPage(t.dataset.page); }));
   document.querySelectorAll('.foot-nav a[data-page]').forEach(a=>a.addEventListener('click',e=>{ e.preventDefault(); if(pages[a.dataset.page]) openPage(a.dataset.page); }));
   document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',closePage));
+  // in-page links (Work): close any open page and the mobile menu, then let the link scroll
+  document.querySelectorAll('.tabs-inner a[href^="#"], .foot-nav a:not([data-page])').forEach(a=>a.addEventListener('click',()=>{ setMenu(false); closePage(); }));
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){closePage();setMenu(false);} });
 })();
 </script>
