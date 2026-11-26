@@ -71,11 +71,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .rule{display:flex;align-items:center;justify-content:center;gap:12px;max-width:260px;margin:16px auto 0;color:var(--gold);font-size:14px;line-height:1;}
 .rule::before,.rule::after{content:"";flex:1;height:1.5px;background:currentColor;opacity:.75;}
 .lead{position:relative;z-index:6;text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,48px);color:var(--navy);margin:0 auto;line-height:1.05;max-width:17ch;padding:0 20px;}
-.leadsub{position:relative;z-index:6;}
 /* headline sits centered on the mat, hidden under the clutter until you tidy */
 .lead-hold{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:6;width:min(600px,82vw);text-align:center;opacity:0;}
 .lead em{font-style:italic;color:var(--gold-deep);}
-.leadsub{text-align:center;font-family:var(--sans);color:var(--ochre-deep);letter-spacing:.14em;text-transform:uppercase;font-size:13px;margin-top:14px;}
 
 /* the desk: a wood surface with a work mat where things get tidied */
 /* the work mat (blotter) sits on the full desk, where things get tidied and the headline is revealed */
@@ -85,7 +83,8 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .pan-wash::after{content:"";position:absolute;inset:0;border-radius:9px;
   background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .36  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"), linear-gradient(180deg, rgba(255,255,255,.1), rgba(120,85,45,.04));opacity:.7;}
 /* desk decor: pens, markers, a post-it pad, loose papers — they sweep away when you tidy */
-.decor{position:absolute;z-index:1;will-change:transform,opacity;}
+.decor{position:absolute;z-index:1;scale:var(--k);will-change:transform,opacity;}
+.decor.top{z-index:8;}
 .decor.pen{width:112px;height:9px;border-radius:5px;background:linear-gradient(90deg,var(--navy) 70%,#c9a677 70%);box-shadow:2px 3px 0 rgba(43,42,40,.18);}
 .decor.pen::after{content:"";position:absolute;right:-9px;top:0;border-left:11px solid #c9a677;border-top:4.5px solid transparent;border-bottom:4.5px solid transparent;}
 .decor.marker{width:94px;height:14px;border-radius:3px;background:linear-gradient(90deg,var(--terra) 78%,#333 78%);box-shadow:2px 3px 0 rgba(43,42,40,.2);}
@@ -96,7 +95,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .decor.paper{width:120px;height:150px;background:#fff;border:1.5px solid rgba(43,42,40,.5);box-shadow:4px 5px 0 rgba(43,42,40,.12);}
 .decor.paper::before{content:"";position:absolute;left:14px;right:14px;top:18px;height:2px;background:rgba(43,42,40,.2);box-shadow:0 10px 0 rgba(43,42,40,.16),0 20px 0 rgba(43,42,40,.13),0 30px 0 rgba(43,42,40,.1);}
 
-.scatter{position:absolute;left:0;right:0;top:140px;bottom:0;z-index:2;}
+/* the pile sits exactly on the mat (same box as .pan-wash); --k shrinks it on phones */
+.scatter{position:absolute;left:50%;top:52%;width:min(640px,84vw);height:480px;transform:translate(-50%,-50%);z-index:2;--k:1;}
+.scrap,.gold{margin:0;} /* figures carry a default 40px side margin */
 .scrap{position:absolute;padding:10px;font-family:var(--hand);will-change:transform,opacity;}
 .scrap.silt{background:#fff;border:1.5px solid var(--ink);box-shadow:5px 5px 0 rgba(43,42,40,.14);}
 .scrap.silt .ph{display:block;background:var(--linen);width:100%;height:100%;object-fit:cover;}
@@ -119,19 +120,19 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .ghost-nugget{position:fixed;left:0;top:0;width:40px;height:38px;z-index:6;pointer-events:none;opacity:0;}
 .ghost-nugget svg{display:block;width:100%;height:100%;overflow:visible;}
 
-/* eight cards, piled tightly together in the middle of the desk */
-#g1{left:30%;top:20%;width:168px;height:194px;transform:rotate(-9deg);z-index:2;}
-#g2{left:40%;top:15%;width:150px;height:124px;transform:rotate(6deg);z-index:3;}
-#g3{left:46%;top:24%;width:176px;height:138px;transform:rotate(-4deg);z-index:2;}
-#g4{left:52%;top:17%;width:158px;height:176px;transform:rotate(8deg);z-index:3;}
-#g5{left:33%;top:40%;width:146px;height:132px;transform:rotate(5deg);z-index:2;}
-#g6{left:44%;top:46%;width:172px;height:124px;transform:rotate(-7deg);z-index:3;}
-#g7{left:52%;top:42%;width:154px;height:146px;transform:rotate(4deg);z-index:2;}
-#g8{left:40%;top:56%;width:164px;height:120px;transform:rotate(-5deg);z-index:2;}
-/* three treasures, nestled among the tight pile */
-#n1{left:36%;top:34%;}
-#n2{left:47%;top:38%;}
-#n3{left:56%;top:32%;}
+/* eight cards in three layers on the mat; rotations live inline so the scroll script can unwind them */
+#g1{left:6%;top:8%;width:calc(168px*var(--k));height:calc(194px*var(--k));z-index:3;}
+#g5{left:67%;top:60%;width:calc(146px*var(--k));height:calc(132px*var(--k));z-index:3;}
+#g8{left:31%;top:69%;width:calc(164px*var(--k));height:calc(120px*var(--k));z-index:3;}
+#g2{left:39%;top:6%;width:calc(150px*var(--k));height:calc(124px*var(--k));z-index:5;}
+#g3{left:66%;top:12%;width:calc(176px*var(--k));height:calc(138px*var(--k));z-index:5;}
+#g7{left:47%;top:42%;width:calc(154px*var(--k));height:calc(146px*var(--k));z-index:5;}
+#g4{left:3%;top:52%;width:calc(158px*var(--k));height:calc(176px*var(--k));z-index:7;}
+#g6{left:52%;top:69%;width:calc(172px*var(--k));height:calc(124px*var(--k));z-index:7;}
+/* one treasure tucked under each layer: folder under the bottom cards' neighbours, laptop mid-pile, gem near the top */
+#n1{left:23%;top:42%;z-index:2;}
+#n2{left:62%;top:37%;z-index:4;}
+#n3{left:78%;top:52%;z-index:6;}
 
 /* ACT 2: the map (the gold, laid out) */
 .act2{position:relative;z-index:2;padding:30px 0 90px;background:var(--linen);}
@@ -139,42 +140,77 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .settle-head{text-align:center;font-family:var(--serif);font-size:clamp(28px,5vw,50px);color:var(--navy);margin:0;}
 .settle-sub{text-align:center;font-family:var(--hand);font-size:clamp(20px,3vw,28px);color:var(--gold-deep);margin:12px 0 46px;}
 
-/* specimen drawers: each grows out of its gold dot as it settles, no pop-in */
-.drawers{margin-top:20px;display:grid;gap:18px;}
-.drawer{position:relative;background:#fff;border:1.5px solid var(--ink);border-radius:4px;box-shadow:5px 5px 0 rgba(43,42,40,.12);overflow:hidden;transition:box-shadow .2s ease;
-  transform-origin:14px 50%;transform:scaleX(var(--grow,0));opacity:var(--grow,0);}
-.drawer.ready{transform:none;opacity:1;}
-.drawer.open{box-shadow:8px 8px 0 rgba(217,165,32,.3);}
-.drawer__face{display:flex;align-items:stretch;gap:0;width:100%;background:none;border:0;padding:0;cursor:pointer;text-align:left;font:inherit;color:inherit;}
-.drawer__crop{flex:none;width:130px;align-self:stretch;background:var(--linen);position:relative;overflow:hidden;}
-.drawer__crop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.story__crop.has-img{background:none;height:auto;padding:0;}
-.story__crop.has-img img{display:block;width:100%;height:auto;border-radius:3px;}
-.drawer__meta{display:flex;flex-direction:column;justify-content:center;gap:4px;padding:18px 18px 18px 20px;flex:1;}
-.drawer__cat{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-deep);}
-.drawer__title{font-family:var(--serif);font-size:clamp(20px,2.4vw,26px);color:var(--navy);line-height:1.1;}
-.drawer__hint{font-family:var(--hand);font-size:17px;color:var(--sage);display:flex;align-items:center;gap:7px;margin-top:2px;}
-.drawer__pull{width:26px;height:8px;border:2px solid var(--sage);border-radius:6px;display:inline-block;transition:transform .25s ease;}
-.drawer.open .drawer__pull{transform:translateY(3px);background:var(--sage);}
-.drawer__face:hover .drawer__pull{transform:translateX(2px);}
-.drawer__body{height:0;overflow:hidden;transition:height .4s cubic-bezier(.16,1,.3,1);}
-.drawer__inner{padding:4px 22px 26px;display:grid;gap:26px;border-top:1.5px dashed var(--ink);}
-.story__k{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-deep);margin:14px 0 4px;}
-.story p{margin:0;max-width:60ch;line-height:1.6;}
-.story__gold{font-family:var(--hand);font-size:20px;color:var(--gold-deep);}
-.story__link{margin-top:14px!important;}
-.story__link a{color:var(--navy);font-weight:500;text-underline-offset:3px;}
-.story__art{align-self:start;}
-.story__crop{display:block;height:170px;background:var(--linen);border:1.5px solid var(--ink);border-radius:3px;}
-.story__art small{display:block;text-align:center;font-family:var(--hand);color:var(--ochre-deep);font-size:16px;margin-top:8px;}
-@media (min-width:720px){ .drawer__inner{grid-template-columns:1.4fr 1fr;align-items:start;} .story__art{position:sticky;top:20px;} }
+/* the work: three collections, each holding editorial project cards that open into a case study */
+.collections{margin-top:6px;display:grid;gap:56px;}
+.collection__head{display:flex;align-items:center;gap:16px;margin-bottom:18px;}
+.collection__icon{flex:none;width:58px;height:54px;}
+.collection__icon svg{display:block;width:100%;height:100%;overflow:visible;}
+.motion .collection__icon{opacity:var(--land,0);}
+.collection__name{margin:0;font:400 clamp(24px,3vw,31px)/1.1 var(--serif);color:var(--navy);}
+.collection__about{margin:5px 0 0;color:var(--text-secondary);font-size:15px;line-height:1.5;max-width:60ch;}
+.collection__cards{display:grid;gap:18px;}
+
+/* cards grow out from the left as the treasure lands (only when motion is allowed) */
+.drawer{position:relative;background:var(--warm);border:1px solid rgba(43,42,40,.16);border-radius:14px;box-shadow:0 10px 26px -18px rgba(43,42,40,.5);overflow:hidden;transition:box-shadow .25s ease;}
+.motion .drawer{transform-origin:14px 50%;transform:scaleX(var(--grow,0));opacity:var(--grow,0);}
+.motion .drawer.ready{transform:none;opacity:1;}
+.drawer:hover{box-shadow:0 16px 34px -18px rgba(43,42,40,.55);}
+.drawer.open{box-shadow:0 0 0 2px rgba(217,165,32,.45),0 18px 40px -20px rgba(43,42,40,.5);}
+.drawer__h{margin:0;font:inherit;}
+.drawer__face{display:grid;grid-template-columns:clamp(150px,27%,250px) 1fr auto;align-items:stretch;width:100%;background:none;border:0;padding:0;cursor:pointer;text-align:left;font:inherit;color:inherit;border-radius:14px;}
+.drawer__face:focus-visible{outline-offset:-3px;}
+.drawer__crop{position:relative;min-height:156px;background:var(--linen);overflow:hidden;}
+.drawer__crop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+.drawer__face:hover .drawer__crop img{transform:scale(1.04);}
+.drawer__meta{display:flex;flex-direction:column;justify-content:center;gap:7px;padding:20px 22px;}
+.drawer__title{font-family:var(--serif);font-size:clamp(21px,2.4vw,27px);color:var(--navy);line-height:1.12;}
+.drawer__tags{font-size:13px;color:var(--text-secondary);letter-spacing:.02em;}
+.drawer__desc{font-size:15.5px;line-height:1.5;color:var(--text-primary);max-width:56ch;}
+.drawer__cta{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 24px 0 8px;font-size:12.5px;font-weight:500;letter-spacing:.03em;color:var(--navy);white-space:nowrap;}
+.drawer__plus{position:relative;width:42px;height:42px;border:1.5px solid var(--navy);border-radius:50%;color:var(--navy);transition:transform .3s ease,background-color .2s ease,color .2s ease;}
+.drawer__plus::before,.drawer__plus::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1.5px;background:currentColor;transform:translate(-50%,-50%);}
+.drawer__plus::after{transform:translate(-50%,-50%) rotate(90deg);}
+.drawer__face:hover .drawer__plus{background:rgba(217,165,32,.2);}
+.drawer.open .drawer__plus{transform:rotate(45deg);background:var(--navy);color:var(--warm);}
+.drawer__cta .when-open,.drawer.open .drawer__cta .when-closed{display:none;}
+.drawer.open .drawer__cta .when-open{display:inline;}
+
+/* the case study */
+.drawer__body{height:0;overflow:hidden;transition:height .45s cubic-bezier(.16,1,.3,1);}
+.drawer__inner{margin:0 24px;padding:8px 0 30px;display:grid;gap:30px;border-top:1px solid rgba(43,42,40,.14);}
+.story .story__k{font:500 11px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--gold-deep);margin:26px 0 10px;}
+.story p{margin:0;max-width:62ch;line-height:1.65;}
+.story p+p{margin-top:10px;}
+.story ol,.story ul{margin:0;padding-left:20px;display:grid;gap:8px;max-width:62ch;line-height:1.6;}
+.story li::marker{color:var(--gold-deep);}
+.story .chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;}
+.chips li{padding:6px 13px;border-radius:999px;background:var(--linen);border:1px solid rgba(43,42,40,.14);font-size:13.5px;line-height:1.3;}
+.story__gold{font-family:var(--hand);font-size:21px;line-height:1.45!important;color:var(--gold-deep);}
+.story__art{margin:24px 0 0;align-self:start;display:grid;gap:12px;}
+.story__art img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid rgba(43,42,40,.16);box-shadow:0 10px 22px -16px rgba(43,42,40,.5);}
+.story__art figcaption{text-align:center;font-family:var(--hand);color:var(--ochre-deep);font-size:16px;line-height:1.4;}
+.story__links{margin:4px 0 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;}
+.btn-link{display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:999px;background:var(--navy);color:var(--warm);text-decoration:none;font-weight:500;font-size:14.5px;}
+.btn-link:hover{background:var(--navy-deep);}
+@media (min-width:760px){ .drawer__inner{grid-template-columns:1.35fr 1fr;align-items:start;} .story__art{position:sticky;top:90px;} }
+@media (max-width:600px){
+  .collections{gap:44px;}
+  .collection__icon{width:48px;height:45px;}
+  .drawer__face{grid-template-columns:1fr auto;}
+  .drawer__crop{grid-column:1 / -1;min-height:0;aspect-ratio:16 / 9;}
+  .drawer__meta{padding:16px 4px 18px 18px;}
+  .drawer__cta{padding:0 16px 0 4px;}
+  .drawer__cta-t{display:none;}
+  .drawer__plus{width:44px;height:44px;}
+  .drawer__inner{margin:0 18px;padding-bottom:24px;}
+}
 
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto;}
   .scrap,.gold{transition:none!important;}
   .lead-hold{opacity:1;}
   .scroll-cue .mouse i{animation:none;}
-  .drawer{opacity:1;transform:none;}
+  .drawer__body{transition:none;}
 }
 
 :focus-visible{outline:3px solid var(--gold-deep);outline-offset:3px;}
@@ -206,7 +242,26 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   .site-head{padding-top:14px;}
   .scroll-cue{bottom:18px;}
   /* keep the clutter pile on the mat instead of spilling low and right */
-  .scatter{top:100px;height:620px;transform:scale(.82);transform-origin:50% 42%;}
+  .scatter{top:46%;height:440px;width:90vw;--k:.62;}
+  .scrap{padding:6px;}
+  .scrap.silt img.ph{height:calc(100% - 16px);}
+  .scrap.silt small{font-size:11px;padding-top:3px;}
+  .gold{width:84px;}
+  .gold .nugget{width:70px;height:65px;}
+  .gold figcaption{font-size:14px;margin-top:6px;}
+  /* phone layout for the tall, narrow mat: same three layers, re-spread to fill it */
+  #g1{left:4%;top:5%;} #g5{left:67%;top:68%;} #g8{left:33%;top:75%;}
+  #g2{left:39%;top:3%;} #g3{left:65%;top:9%;} #g7{left:45%;top:41%;}
+  #g4{left:9%;top:49%;} #g6{left:56%;top:77%;}
+  #n1{left:24%;top:27%;} #n2{left:61%;top:34%;} #n3{left:71%;top:57%;}
+  .scatter .decor:nth-of-type(1){left:33%!important;top:23%!important;}
+  .scatter .decor:nth-of-type(2){left:3%!important;top:1%!important;}
+  .scatter .decor:nth-of-type(3){left:68%!important;top:68%!important;}
+  .scatter .decor:nth-of-type(4){left:79%!important;top:50%!important;}
+  .scatter .decor:nth-of-type(5){left:0%!important;top:33%!important;}
+  .scatter .decor:nth-of-type(6){left:61%!important;top:0%!important;}
+  .scatter .decor:nth-of-type(7){left:12%!important;top:93%!important;}
+  .scatter .decor:nth-of-type(8){left:63%!important;top:94%!important;}
 }
 
 /* pages: the cover (pan) plus flip-in section pages */
@@ -255,7 +310,6 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .foot-brand{display:flex;align-items:center;gap:14px;}
 .foot-brand .logo__mark{width:44px;height:44px;}
 .foot-name{font-family:var(--serif);font-size:22px;margin:0;}
-.foot-tag{font-family:var(--hand);font-size:17px;color:var(--ochre);margin:2px 0 0;}
 .foot-nav,.foot-social{display:flex;gap:20px;flex-wrap:wrap;}
 .foot-nav a,.foot-social a{color:var(--warm);text-decoration:none;font-size:15px;opacity:.9;}
 .foot-nav a:hover,.foot-social a:hover{opacity:1;text-decoration:underline;}
@@ -322,7 +376,6 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     <div class="lead-hold">
       <p class="lead" id="act1-heading">A cluttered desk, <em>tidied,</em> and the treasures surface.</p>
       <span class="rule" aria-hidden="true">&#10022;</span>
-      <p class="leadsub">order from chaos · found in the void · beauty in the details</p>
     </div>
 
     <div class="desk-photo" aria-hidden="true"></div>
@@ -337,28 +390,28 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     <div class="scroll-cue" aria-hidden="true"><span class="mouse"><i></i></span>Scroll to discover</div>
 
     <div class="scatter" id="scatter" aria-hidden="true">
-      <figure class="scrap silt" id="g1"><img class="ph" src="assets/img/desk-doodles.jpg" width="560" height="560" decoding="async" alt="character doodles"><small>doodles</small></figure>
-      <figure class="scrap silt" id="g2"><img class="ph" src="assets/img/desk-layout-sketch.jpg" width="560" height="560" decoding="async" alt="a layout sketch"><small>a sketch</small></figure>
-      <figure class="scrap silt" id="g3"><img class="ph" src="assets/img/desk-books.jpg" width="560" height="560" decoding="async" alt="a stack of books"><small>what I'm reading</small></figure>
-      <figure class="scrap silt" id="g4"><img class="ph" src="assets/img/desk-venn.jpg" width="560" height="560" decoding="async" alt="a Venn sketch"><small>a diagram</small></figure>
-      <figure class="scrap silt" id="g5"><img class="ph" src="assets/img/desk-journal.jpg" width="560" height="560" decoding="async" alt="journal page"><small>a page</small></figure>
-      <figure class="scrap silt" id="g6"><img class="ph" src="assets/img/desk-mockup.jpg" width="560" height="560" decoding="async" alt="a website mockup"><small>a mockup</small></figure>
-      <figure class="scrap silt" id="g7"><img class="ph" src="assets/img/desk-flowchart.jpg" width="560" height="560" decoding="async" alt="a workflow flowchart"><small>a flowchart</small></figure>
-      <figure class="scrap silt" id="g8"><img class="ph" src="assets/img/desk-flyer.jpg" width="560" height="560" decoding="async" alt="a class flyer"><small>a flyer</small></figure>
+      <figure class="scrap silt" id="g1" style="transform:rotate(-6deg);"><img class="ph" src="assets/img/desk-doodles.jpg" width="560" height="560" decoding="async" alt="character doodles"><small>doodles</small></figure>
+      <figure class="scrap silt" id="g2" style="transform:rotate(6deg);"><img class="ph" src="assets/img/desk-layout-sketch.jpg" width="560" height="560" decoding="async" alt="a layout sketch"><small>a sketch</small></figure>
+      <figure class="scrap silt" id="g3" style="transform:rotate(-4deg);"><img class="ph" src="assets/img/desk-books.jpg" width="560" height="560" decoding="async" alt="a stack of books"><small>what I'm reading</small></figure>
+      <figure class="scrap silt" id="g4" style="transform:rotate(7deg);"><img class="ph" src="assets/img/desk-venn.jpg" width="560" height="560" decoding="async" alt="a Venn sketch"><small>a diagram</small></figure>
+      <figure class="scrap silt" id="g5" style="transform:rotate(5deg);"><img class="ph" src="assets/img/desk-journal.jpg" width="560" height="560" decoding="async" alt="journal page"><small>a page</small></figure>
+      <figure class="scrap silt" id="g6" style="transform:rotate(-6deg);"><img class="ph" src="assets/img/desk-mockup.jpg" width="560" height="560" decoding="async" alt="a website mockup"><small>a mockup</small></figure>
+      <figure class="scrap silt" id="g7" style="transform:rotate(4deg);"><img class="ph" src="assets/img/desk-flowchart.jpg" width="560" height="560" decoding="async" alt="a workflow flowchart"><small>a flowchart</small></figure>
+      <figure class="scrap silt" id="g8" style="transform:rotate(-4deg);"><img class="ph" src="assets/img/desk-flyer.jpg" width="560" height="560" decoding="async" alt="a class flyer"><small>a flyer</small></figure>
 
-      <figure class="gold" id="n1"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-folder"/></svg></span><figcaption>order from chaos</figcaption></figure>
-      <figure class="gold" id="n2"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-laptop"/></svg></span><figcaption>found in the void</figcaption></figure>
-      <figure class="gold" id="n3"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-gem"/></svg></span><figcaption>beauty in the details</figcaption></figure>
+      <figure class="gold" id="n1" data-rot="-14"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-folder"/></svg></span><figcaption>order from chaos</figcaption></figure>
+      <figure class="gold" id="n2" data-rot="9"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-laptop"/></svg></span><figcaption>found in the void</figcaption></figure>
+      <figure class="gold" id="n3" data-rot="-6"><span class="nugget"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-gem"/></svg></span><figcaption>beauty in the details</figcaption></figure>
 
       <!-- desk decor: sweeps away when you tidy -->
-      <span class="decor pen" style="left:16%;top:30%;transform:rotate(-24deg);"></span>
-      <span class="decor marker" style="left:20%;top:62%;transform:rotate(14deg);"></span>
-      <span class="decor marker m2" style="left:66%;top:66%;transform:rotate(-10deg);"></span>
-      <span class="decor pad" style="right:14%;top:26%;transform:rotate(7deg);"></span>
-      <span class="decor pad p2" style="left:14%;top:46%;transform:rotate(-8deg);"></span>
-      <span class="decor clip" style="left:62%;top:22%;transform:rotate(18deg);"></span>
-      <span class="decor paper" style="right:12%;top:50%;transform:rotate(9deg);"></span>
-      <span class="decor pen" style="right:22%;top:70%;transform:rotate(32deg);"></span>
+      <span class="decor pen" style="left:42%;top:36%;transform:rotate(-24deg);"></span>
+      <span class="decor marker" style="left:5%;top:4%;transform:rotate(14deg);"></span>
+      <span class="decor paper" style="left:79%;top:64%;transform:rotate(9deg);"></span>
+      <span class="decor pad top" style="left:86%;top:42%;transform:rotate(7deg);"></span>
+      <span class="decor pad p2 top" style="left:1%;top:38%;transform:rotate(-8deg);"></span>
+      <span class="decor clip top" style="left:62%;top:5%;transform:rotate(18deg);"></span>
+      <span class="decor pen top" style="left:33%;top:90%;transform:rotate(12deg);"></span>
+      <span class="decor marker m2 top" style="left:72%;top:92%;transform:rotate(-10deg);"></span>
     </div>
   </div>
 </section>
@@ -369,79 +422,164 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     <span class="rule" aria-hidden="true">&#10022;</span>
     <p class="settle-sub">open a drawer to see its full story</p>
 
-    <div class="drawers" id="drawers">
-      <article class="drawer" data-i="0">
-        <button class="drawer__face" aria-expanded="false" aria-controls="d0">
-          <span class="drawer__crop"><img src="assets/img/qbo-agent-thumb.jpg" width="684" height="912" loading="lazy" decoding="async" alt="QBO invoice reconciliation flow"></span>
-          <span class="drawer__meta">
-            <span class="drawer__cat">Order from chaos</span>
-            <span class="drawer__title">An AI agent that reconciles invoices on its own</span>
-            <span class="drawer__hint"><span class="drawer__pull" aria-hidden="true"></span> pull</span>
-          </span>
-        </button>
-        <div class="drawer__body" id="d0" role="region" aria-label="An AI agent that reconciles invoices on its own">
-          <div class="drawer__inner">
-            <div class="story">
-              <p class="story__k">The mess</p>
-              <p>Matching payment PDFs from email to open invoices in QuickBooks is slow, repetitive, and so easy to get wrong. The kind of task that eats a whole afternoon and still leaves you second-guessing it.</p>
-              <p class="story__k">What I did</p>
-              <p>I mapped the whole flow, then built an AI agent to run it: check email, read the PDF, look up the invoice in QuickBooks, and apply the payment. Partial payments, overpayments, and anything that looks off get flagged for a human instead of posted blind.</p>
-              <p class="story__k">What it became</p>
-              <p class="story__gold">A tedious job that now runs itself, with a human still holding the final call. Order, pulled out of the chaos.</p>
-            </div>
-            <div class="story__art"><span class="story__crop has-img"><img src="assets/img/qbo-agent-flow.jpg" width="1400" height="524" loading="lazy" decoding="async" alt="QBO invoice reconciliation flow: email to PDF to QuickBooks, with guardrails"></span><small>the reconciliation flow, start to finish</small></div>
-          </div>
-        </div>
-      </article>
+    <div class="collections" id="drawers">
 
-      <article class="drawer" data-i="1">
-        <button class="drawer__face" aria-expanded="false" aria-controls="d1">
-          <span class="drawer__crop"><img src="assets/img/glass-thumb.jpg" width="320" height="320" loading="lazy" decoding="async" alt="Queer Art Glass website"></span>
-          <span class="drawer__meta">
-            <span class="drawer__cat">Found in the void</span>
-            <span class="drawer__title">A stained glass studio, built from nothing</span>
-            <span class="drawer__hint"><span class="drawer__pull" aria-hidden="true"></span> pull</span>
-          </span>
-        </button>
-        <div class="drawer__body" id="d1" role="region" aria-label="A stained glass studio, built from nothing">
-          <div class="drawer__inner">
-            <div class="story">
-              <p class="story__k">The mess</p>
-              <p>A stained glass artist with real work to show and no home for it online. A blank page, a strong craft, and no map from one to the other.</p>
-              <p class="story__k">What I did</p>
-              <p>I shaped a whole brand and site from scratch: the voice, the structure, and a look that feels like the glass itself, so the work has a place that honors it.</p>
-              <p class="story__k">What it became</p>
-              <p class="story__gold">A site where light changes everything. Pulled out of the void.</p>
-              <p class="story__link"><a href="https://www.queerartglass.com">Visit queerartglass.com</a></p>
-            </div>
-            <div class="story__art"><span class="story__crop has-img"><img src="assets/img/glass-mockup.jpg" width="640" height="820" loading="lazy" decoding="async" alt="The Queer Art Glass website"></span><small>Queer Art Glass, live at queerartglass.com</small></div>
+      <section class="collection" aria-labelledby="c0">
+        <header class="collection__head">
+          <span class="collection__icon" aria-hidden="true"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-folder"/></svg></span>
+          <div>
+            <h3 class="collection__name" id="c0">Order from chaos</h3>
+            <p class="collection__about">AI agents, automation, and workflows that take a tangle of repeat work and make it run.</p>
           </div>
+        </header>
+        <div class="collection__cards">
+          <article class="drawer">
+            <h4 class="drawer__h">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d0" aria-labelledby="t0" aria-describedby="s0">
+                <span class="drawer__crop"><img src="assets/img/qbo-agent-thumb.jpg" width="684" height="912" loading="lazy" decoding="async" alt=""></span>
+                <span class="drawer__meta">
+                  <span class="drawer__title" id="t0">An AI agent that reconciles invoices on its own</span>
+                  <span class="drawer__tags">AI agent · Automation · QuickBooks Online</span>
+                  <span class="drawer__desc" id="s0">Reads payment PDFs from email and applies them in QuickBooks, with a human holding the final call.</span>
+                </span>
+                <span class="drawer__cta" aria-hidden="true"><span class="drawer__plus"></span><span class="drawer__cta-t"><span class="when-closed">View details</span><span class="when-open">Close</span></span></span>
+              </button>
+            </h4>
+            <div class="drawer__body" id="d0" role="region" aria-labelledby="t0" inert>
+              <div class="drawer__inner">
+                <div class="story">
+                  <p class="story__k">Overview</p>
+                  <p>An AI agent that watches a receiving inbox for invoice payment PDFs and reconciles them against a QuickBooks Online account.</p>
+                  <p class="story__k">The problem</p>
+                  <p>Matching payment PDFs from email to open invoices in QuickBooks is slow, repetitive, and so easy to get wrong. The kind of task that eats a whole afternoon and still leaves you second-guessing it.</p>
+                  <p class="story__k">My approach</p>
+                  <p>I mapped the whole flow first, then built an agent to run it in four steps:</p>
+                  <ol>
+                    <li><strong>Ingest:</strong> check Gmail for new payment emails and download the PDF attachments.</li>
+                    <li><strong>Extract:</strong> a Google Gemini model reads each PDF and pulls out the invoice details.</li>
+                    <li><strong>Verify:</strong> look up the invoice balance in QuickBooks Online.</li>
+                    <li><strong>Apply:</strong> if everything lines up, apply the payment. Partial payments, overpayments, and anything that looks off get flagged for a human instead of posted blind.</li>
+                  </ol>
+                  <p class="story__k">Tools</p>
+                  <ul class="chips"><li>Python</li><li>Gmail API</li><li>Google Gemini</li><li>QuickBooks Online API</li><li>Automated tests</li></ul>
+                  <p class="story__k">My contributions</p>
+                  <p>I designed the flow and built the agent end to end, including automated tests for the connectors and the guardrails.</p>
+                  <p class="story__k">The outcome</p>
+                  <p class="story__gold">A tedious job that now runs itself, with a human still holding the final call. Order, pulled out of the chaos.</p>
+                </div>
+                <figure class="story__art">
+                  <img src="assets/img/qbo-agent-flow.jpg" width="1400" height="524" loading="lazy" decoding="async" alt="QBO invoice reconciliation flow: email to PDF to QuickBooks, with guardrails">
+                  <figcaption>the reconciliation flow, start to finish</figcaption>
+                  <p class="story__links"><a class="btn-link" href="https://github.com/segolily04/QBO_AP_Reconcilation_Agent">View the code on GitHub</a></p>
+                </figure>
+              </div>
+            </div>
+          </article>
         </div>
-      </article>
+      </section>
 
-      <article class="drawer" data-i="2">
-        <button class="drawer__face" aria-expanded="false" aria-controls="d2">
-          <span class="drawer__crop"><img src="assets/img/weefix-thumb.jpg" width="900" height="1120" loading="lazy" decoding="async" alt="Mr. WeeFix financial workbook, rebuilt P and L"></span>
-          <span class="drawer__meta">
-            <span class="drawer__cat">Beauty in the details</span>
-            <span class="drawer__title">A small business's books, cleaned up and made clear</span>
-            <span class="drawer__hint"><span class="drawer__pull" aria-hidden="true"></span> pull</span>
-          </span>
-        </button>
-        <div class="drawer__body" id="d2" role="region" aria-label="A small business's books, cleaned up and made clear">
-          <div class="drawer__inner">
-            <div class="story">
-              <p class="story__k">The mess</p>
-              <p>A real small business, a fix-it shop, with books that did not quite add up. Numbers that did not match the prior year, loan interest buried in with the principal, van costs scattered everywhere. The kind of thing that makes tax season a nightmare.</p>
-              <p class="story__k">What I did</p>
-              <p>I went line by line. Rebuilt the P&amp;L from the ground up, split the loan interest out from the principal, mapped the vehicle costs, and reconciled every number against the old workbook until it all tied out. Then cash flow, balance sheet, and a plain-language advisory memo on top.</p>
-              <p class="story__k">What it became</p>
-              <p class="story__gold">Books the owner can actually trust. The whole story is in the details, and I live for that part.</p>
-            </div>
-            <div class="story__art"><span class="story__crop has-img"><img src="assets/img/weefix-pnl.jpg" width="1300" height="928" loading="lazy" decoding="async" alt="Rebuilt Profit and Loss summary for Mr. WeeFix, reconciled against the prior workbook"></span><small>the rebuilt P&amp;L, reconciled line by line</small></div>
+      <section class="collection" aria-labelledby="c1">
+        <header class="collection__head">
+          <span class="collection__icon" aria-hidden="true"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-laptop"/></svg></span>
+          <div>
+            <h3 class="collection__name" id="c1">Found in the void</h3>
+            <p class="collection__about">Brands, websites, and ventures built from nothing but an idea.</p>
           </div>
+        </header>
+        <div class="collection__cards">
+          <article class="drawer">
+            <h4 class="drawer__h">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d1" aria-labelledby="t1" aria-describedby="s1">
+                <span class="drawer__crop"><img src="assets/img/glass-thumb.jpg" width="320" height="320" loading="lazy" decoding="async" alt=""></span>
+                <span class="drawer__meta">
+                  <span class="drawer__title" id="t1">A stained glass studio, built from nothing</span>
+                  <span class="drawer__tags">Brand · Website · Creative business</span>
+                  <span class="drawer__desc" id="s1">A brand and website for Queer Art Glass, shaped from a blank page.</span>
+                </span>
+                <span class="drawer__cta" aria-hidden="true"><span class="drawer__plus"></span><span class="drawer__cta-t"><span class="when-closed">View details</span><span class="when-open">Close</span></span></span>
+              </button>
+            </h4>
+            <div class="drawer__body" id="d1" role="region" aria-labelledby="t1" inert>
+              <div class="drawer__inner">
+                <div class="story">
+                  <p class="story__k">Overview</p>
+                  <p>A brand and website for Queer Art Glass, a stained glass artist's studio, built from scratch.</p>
+                  <p class="story__k">The problem</p>
+                  <p>A stained glass artist with real work to show and no home for it online. A blank page, a strong craft, and no map from one to the other.</p>
+                  <p class="story__k">My approach</p>
+                  <p>I shaped the brand and the site together, with a look that feels like the glass itself, so the work has a place that honors it.</p>
+                  <p class="story__k">My contributions</p>
+                  <ul>
+                    <li>The brand voice</li>
+                    <li>The site structure</li>
+                    <li>The visual look and design</li>
+                  </ul>
+                  <p class="story__k">The outcome</p>
+                  <p class="story__gold">A site where light changes everything. Pulled out of the void.</p>
+                  <p>The site is live at queerartglass.com.</p>
+                </div>
+                <figure class="story__art">
+                  <img src="assets/img/glass-mockup.jpg" width="640" height="820" loading="lazy" decoding="async" alt="An early design mockup for the stained glass studio website, with commissions, classes, and repair sections">
+                  <figcaption>an early design mockup for the site</figcaption>
+                  <p class="story__links"><a class="btn-link" href="https://www.queerartglass.com">Visit queerartglass.com</a></p>
+                </figure>
+              </div>
+            </div>
+          </article>
         </div>
-      </article>
+      </section>
+
+      <section class="collection" aria-labelledby="c2">
+        <header class="collection__head">
+          <span class="collection__icon" aria-hidden="true"><svg viewBox="0 0 86 80" focusable="false"><use href="#ico-gem"/></svg></span>
+          <div>
+            <h3 class="collection__name" id="c2">Beauty in the details</h3>
+            <p class="collection__about">Analysis, financial clean-up, and the careful work of making things clear.</p>
+          </div>
+        </header>
+        <div class="collection__cards">
+          <article class="drawer">
+            <h4 class="drawer__h">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d2" aria-labelledby="t2" aria-describedby="s2">
+                <span class="drawer__crop"><img src="assets/img/weefix-thumb.jpg" width="900" height="1120" loading="lazy" decoding="async" alt=""></span>
+                <span class="drawer__meta">
+                  <span class="drawer__title" id="t2">A small business's books, cleaned up and made clear</span>
+                  <span class="drawer__tags">Bookkeeping · Financial analysis · Advisory</span>
+                  <span class="drawer__desc" id="s2">The books for a small fix-it shop, rebuilt, reconciled, and explained in plain language.</span>
+                </span>
+                <span class="drawer__cta" aria-hidden="true"><span class="drawer__plus"></span><span class="drawer__cta-t"><span class="when-closed">View details</span><span class="when-open">Close</span></span></span>
+              </button>
+            </h4>
+            <div class="drawer__body" id="d2" role="region" aria-labelledby="t2" inert>
+              <div class="drawer__inner">
+                <div class="story">
+                  <p class="story__k">Overview</p>
+                  <p>A bookkeeping cleanup for Mr. WeeFix, a small fix-it business: the books rebuilt, reconciled, and explained in plain language.</p>
+                  <p class="story__k">The problem</p>
+                  <p>Books that did not quite add up. Numbers that did not match the prior year, loan interest buried in with the principal, van costs scattered everywhere. The kind of thing that makes tax season a nightmare.</p>
+                  <p class="story__k">My approach</p>
+                  <p>I went line by line, reconciling every number against the old workbook until it all tied out.</p>
+                  <p class="story__k">My contributions</p>
+                  <ul>
+                    <li>Rebuilt the P&amp;L from the ground up</li>
+                    <li>Split the loan interest out from the principal</li>
+                    <li>Mapped the scattered vehicle costs</li>
+                    <li>Built the cash flow statement and balance sheet</li>
+                    <li>Wrote a plain-language advisory memo for the owner</li>
+                  </ul>
+                  <p class="story__k">The outcome</p>
+                  <p class="story__gold">Books the owner can actually trust. The whole story is in the details, and I live for that part.</p>
+                </div>
+                <figure class="story__art">
+                  <img src="assets/img/weefix-pnl.jpg" width="1300" height="928" loading="lazy" decoding="async" alt="Rebuilt Profit and Loss summary for Mr. WeeFix, reconciled against the prior workbook">
+                  <figcaption>the rebuilt P&amp;L, reconciled line by line (figures shown are placeholders to protect client data)</figcaption>
+                </figure>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
     </div>
   </div>
 </section>
@@ -534,7 +672,6 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
       <span class="logo__mark" aria-hidden="true"><img src="assets/img/logo.png" width="160" height="160" loading="lazy" decoding="async" alt=""></span>
       <div>
         <p class="foot-name">Danni's Creative Studio</p>
-        <p class="foot-tag">order from chaos · found in the void · beauty in the details</p>
       </div>
     </div>
     <nav class="foot-nav" aria-label="Footer">
@@ -559,6 +696,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   const silt=[...document.querySelectorAll('.scrap')];
   const decor=[...document.querySelectorAll('.decor')];
   const gold=[...document.querySelectorAll('.gold')];
+  const goldRot=gold.map(g=>parseFloat(g.dataset.rot)||0);
   const baseRot=silt.map(s=>parseFloat((s.style.transform.match(/rotate\(([-\d.]+)deg\)/)||[,0])[1]));
   const decorRot=decor.map(s=>parseFloat((s.style.transform.match(/rotate\(([-\d.]+)deg\)/)||[,0])[1]));
 
@@ -566,8 +704,6 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   const leadHold=document.querySelector('.lead-hold');
   const pan=document.querySelector('.pan-wash');
   const stickyEl=document.querySelector('.sticky');
-  const drawerEls=[...document.querySelectorAll('.drawer')];
-  const stack=document.getElementById('drawers');
   const cue=document.querySelector('.scroll-cue');
   const ribbons=[...document.querySelectorAll('.ribbons path')];
 
@@ -575,13 +711,20 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
      scroll event, so the scroll path reads one or two rects and then only writes styles. */
   const L={};
   function measure(){
-    L.rowGap=innerWidth<=720?110:185; // settled treasure row spacing; tighter on mobile to fit the mat
+    L.rowGap=innerWidth<=720?100:185; // settled treasure row spacing; tighter on mobile to fit the mat
     L.scrollable=Math.max(1,act1.offsetHeight-innerHeight);
-    const s=stickyEl.getBoundingClientRect(), w=pan.getBoundingClientRect();
-    // pan centre relative to the sticky viewport; treasures gather into a tidy row there
-    L.cx=w.left-s.left+w.width/2; L.cy=w.top-s.top+w.height*0.52;
-    // offsetLeft/offsetTop ignore transforms, so these are the treasures' resting spots
-    L.gold=gold.map(g=>({x:g.offsetLeft+g.offsetWidth/2,y:g.offsetTop}));
+    /* Where each treasure settles: a centred row whose labels end just inside the mat's
+       bottom edge. Measured in screen pixels against the mat itself, then divided by the
+       pile's own scale (it is shrunk on phones), so the row lands on the mat at any size. */
+    const w=pan.getBoundingClientRect(), sc=scatter.getBoundingClientRect();
+    const k=(sc.width/scatter.offsetWidth)||1;
+    const rects=gold.map(g=>{ const t=g.style.transform; g.style.transform='none'; const rc=g.getBoundingClientRect(); g.style.transform=t; return rc; });
+    const rowH=Math.max(...rects.map(rc=>rc.height));
+    const rowTop=w.bottom-rowH-Math.max(22,w.height*0.07);
+    L.gold=rects.map((rc,i)=>({
+      dx:(w.left+w.width/2+(i-1)*L.rowGap*k-(rc.left+rc.width/2))/k,
+      dy:(rowTop-rc.top)/k
+    }));
   }
 
   // draw the desk at tidy progress p (0 = cluttered, 1 = cleared)
@@ -591,7 +734,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     silt.forEach((s,i)=>{
       const sweepX=e*(260+(i%3)*14);
       const sweepY=e*(150-i*3);
-      const wobble=Math.sin((p*8)+i)*(1-e)*8;
+      const wobble=Math.sin((p*8)+i)*(1-e)*5;
       const settleRot=(i%2?3:-3);
       s.style.transform=`translate(${sweepX}px,${sweepY}px) rotate(${baseRot[i]*(1-e)+settleRot*e+wobble}deg)`;
       s.style.opacity=`${Math.max(0,1-e*1.5)}`;
@@ -604,11 +747,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     });
     // treasures gather into a tidy row on the mat
     gold.forEach((gEl,i)=>{
-      const st=L.gold[i];
-      const gatherX=(L.cx+(i-1)*L.rowGap)-st.x;
-      const gatherY=(L.cy+58)-st.y;
+      const gatherX=L.gold[i].dx, gatherY=L.gold[i].dy;
       const jig=Math.sin((p*7)+i)*(1-e)*5;
-      gEl.style.transform=`translate(${gatherX*e+jig}px,${gatherY*e}px) scale(${0.9+e*0.1})`;
+      gEl.style.transform=`translate(${gatherX*e+jig}px,${gatherY*e}px) rotate(${goldRot[i]*(1-e)}deg) scale(${0.9+e*0.1})`;
       gEl.classList.toggle('lit',!reduce&&e>0.55&&e<0.85);
     });
     // parchment washes up, ribbons draw in, the scroll cue bows out
@@ -625,32 +766,34 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     }
   }
 
-  /* Handoff: driven by each drawer's live position as it scrolls up into view.
-     A ghost nugget rides from the pan row down into each drawer's gold dot, while the
-     drawer grows from that dot. One continuous object, measured in live viewport coords. */
+  /* Handoff: as each collection scrolls into view, a ghost treasure falls from above and
+     lands as that collection's icon, and its cards grow out underneath. It plays once per
+     collection (progress only moves forward), so scrolling back up doesn't re-run it. */
+  const cols=[...document.querySelectorAll('.collection')];
+  const colIcons=cols.map(c=>c.querySelector('.collection__icon'));
+  const colCards=cols.map(c=>[...c.querySelectorAll('.drawer')]);
+  const best=cols.map(()=>0);
   const ghostIcons=['ico-folder','ico-laptop','ico-gem'];
-  const ghosts=reduce?[]:drawerEls.map((d,i)=>{
+  const ghosts=reduce?[]:cols.map((c,i)=>{
     const n=document.createElement('span'); n.className='ghost-nugget'; n.setAttribute('aria-hidden','true');
     n.innerHTML=`<svg viewBox="0 0 86 80" focusable="false"><use href="#${ghostIcons[i]||'ico-folder'}"/></svg>`;
     document.body.appendChild(n); return n;
   });
-  function renderHandoff(sr,crops){
-    // single progress for the whole stack: 0 as it enters from the bottom, 1 once it's comfortably in view
-    const enter=innerHeight*0.95, done=innerHeight*0.45;
-    const sp=Math.max(0,Math.min(1,(enter-sr.top)/(enter-done)));
-    drawerEls.forEach((d,i)=>{
-      // stagger: each drawer unrolls a little after the one above, all finishing by sp=1
-      const local=Math.max(0,Math.min(1,(sp-i*0.14)/0.5));
-      const gv=local*local*(3-2*local);
-      d.style.setProperty('--grow',gv.toFixed(3));
-      d.classList.toggle('ready',gv>0.98);
-      const cr=crops[i];
-      const dotX=cr.left+29, dotY=cr.top+29;
-      const fallFrom=dotY-170;
-      const gy=fallFrom+(dotY-fallFrom)*gv;
+  const smooth=t=>t*t*(3-2*t), clamp=t=>Math.max(0,Math.min(1,t));
+  function renderHandoff(icons){
+    const enter=innerHeight*0.98, done=innerHeight*0.55;
+    icons.forEach((cr,i)=>{
+      best[i]=Math.max(best[i],clamp((enter-cr.top)/(enter-done)));
+      const local=best[i], gv=smooth(local);
+      const land=clamp((gv-0.85)/0.15);
+      cols[i].style.setProperty('--land',land.toFixed(2));
+      const grow=smooth(clamp((local-0.3)/0.7));
+      colCards[i].forEach(d=>{ d.style.setProperty('--grow',grow.toFixed(3)); d.classList.toggle('ready',grow>0.98); });
+      const fallFrom=cr.top-170, gy=fallFrom+(cr.top-fallFrom)*gv;
       const gh=ghosts[i];
-      gh.style.transform=`translate(${dotX-20}px,${gy-19}px) rotate(${(1-gv)*-12}deg)`;
-      gh.style.opacity=`${local<=0?0:(gv<0.9?1:Math.max(0,1-(gv-0.9)/0.1))}`;
+      gh.style.width=cr.width+'px'; gh.style.height=cr.height+'px';
+      gh.style.transform=`translate(${cr.left}px,${gy}px) rotate(${(1-gv)*-12}deg)`;
+      gh.style.opacity=local<=0?'0':(1-land).toFixed(2);
     });
   }
 
@@ -658,46 +801,47 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   function frame(){
     queued=false;
     const top=act1.getBoundingClientRect().top;
-    const sr=stack.getBoundingClientRect();
-    const crops=drawerEls.map(d=>d.querySelector('.drawer__crop').getBoundingClientRect());
+    const icons=colIcons.map(el=>el.getBoundingClientRect());
     renderDesk(Math.max(0,Math.min(1,-top/L.scrollable)));
-    renderHandoff(sr,crops);
+    renderHandoff(icons);
   }
   let queued=false;
   function request(){ if(!queued){queued=true;requestAnimationFrame(frame);} }
 
   if(reduce){
-    // no motion: show the tidied desk (headline + treasures on the mat) and the open drawers, all still
+    // no motion: show the tidied desk (headline + treasures on the mat) and the cards, all still
     const still=()=>{measure();renderDesk(1);};
-    drawerEls.forEach(d=>{d.style.setProperty('--grow',1);d.classList.add('ready');});
     still(); addEventListener('resize',still,{passive:true});
   }else{
+    document.documentElement.classList.add('motion');
     measure(); frame();
     addEventListener('load',()=>{measure();request();});
     addEventListener('scroll',request,{passive:true});
     addEventListener('resize',()=>{measure();request();},{passive:true});
   }
 
-  // specimen drawers: one open at a time, click or keyboard
+  // project cards: one open at a time; a closed case study is inert, so its links aren't in the tab order
   const drawers=[...document.querySelectorAll('.drawer')];
-  function closeDrawer(d){
+  function setOpen(d,open){
     const body=d.querySelector('.drawer__body'), btn=d.querySelector('.drawer__face');
-    body.style.height=body.scrollHeight+'px'; requestAnimationFrame(()=>{body.style.height='0px';});
-    d.classList.remove('open'); btn.setAttribute('aria-expanded','false');
-  }
-  function openDrawer(d){
-    drawers.forEach(o=>{if(o!==d&&o.classList.contains('open'))closeDrawer(o);});
-    const body=d.querySelector('.drawer__body'), btn=d.querySelector('.drawer__face');
-    const inner=d.querySelector('.drawer__inner');
-    body.style.height=inner.offsetHeight+'px';
-    d.classList.add('open'); btn.setAttribute('aria-expanded','true');
-    body.addEventListener('transitionend',function te(){body.style.height='auto';body.removeEventListener('transitionend',te);},{once:true});
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    d.classList.toggle('open',open);
+    body.inert=!open;
+    if(reduce){ body.style.height=open?'auto':'0px'; return; }
+    body.style.height=body.scrollHeight+'px';
+    if(open){
+      const done=e=>{ if(e.target!==body)return; body.removeEventListener('transitionend',done); if(d.classList.contains('open'))body.style.height='auto'; };
+      body.addEventListener('transitionend',done);
+    }else{
+      body.offsetHeight; // commit the measured height so the collapse animates
+      body.style.height='0px';
+    }
   }
   drawers.forEach(d=>{
-    const btn=d.querySelector('.drawer__face');
-    btn.addEventListener('click',()=>{
-      if(d.classList.contains('open')){ const body=d.querySelector('.drawer__body'); body.style.height=body.scrollHeight+'px'; requestAnimationFrame(()=>body.style.height='0px'); d.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
-      else openDrawer(d);
+    d.querySelector('.drawer__face').addEventListener('click',()=>{
+      const open=!d.classList.contains('open');
+      if(open)drawers.forEach(o=>{ if(o!==d&&o.classList.contains('open'))setOpen(o,false); });
+      setOpen(d,open);
     });
   });
 })();
