@@ -109,7 +109,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 /* treasures: three line-icon objects you uncover while tidying — a folder, a laptop with a heart, a gem */
 .gold{position:absolute;z-index:5;width:98px;font-family:var(--hand);text-align:center;will-change:transform;}
 .gold .nugget{display:block;width:86px;height:80px;margin:0 auto;position:relative;transition:filter .4s ease, opacity .4s ease;}
-.gold figcaption{display:block;margin-top:10px;color:var(--gold-deep);font-size:16px;transition:opacity .3s ease;}
+.gold figcaption{display:block;margin-top:10px;color:#6E4A0B;font-size:16px;transition:opacity .3s ease;}
 /* warm glow behind a lit treasure */
 .gold .nugget::before{content:"";position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:118px;height:118px;border-radius:50%;z-index:-1;opacity:0;background:radial-gradient(circle, rgba(228,179,99,.55), transparent 68%);transition:opacity .5s ease;}
 .gold.lit .nugget::before{opacity:1;}
@@ -310,8 +310,8 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 .foot-brand{display:flex;align-items:center;gap:14px;}
 .foot-brand .logo__mark{width:44px;height:44px;}
 .foot-name{font-family:var(--serif);font-size:22px;margin:0;}
-.foot-nav,.foot-social{display:flex;gap:20px;flex-wrap:wrap;}
-.foot-nav a,.foot-social a{color:var(--warm);text-decoration:none;font-size:15px;opacity:.9;}
+.foot-nav,.foot-social{display:flex;column-gap:20px;row-gap:0;flex-wrap:wrap;}
+.foot-nav a,.foot-social a{display:inline-flex;align-items:center;min-height:44px;color:var(--warm);text-decoration:none;font-size:15px;opacity:.9;}
 .foot-nav a:hover,.foot-social a:hover{opacity:1;text-decoration:underline;}
 .foot-legal{font-family:var(--hand);font-size:17px;color:var(--mist-blue);text-align:center;margin:12px auto 0;}
 @media (min-width:760px){
@@ -362,9 +362,9 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
 
   <div class="page-cover">
   <header class="site-head">
-    <a class="logo" href="#top" aria-label="Danni's Creative Studio, home">
+    <a class="logo" href="#top">
       <span class="logo__mark" aria-hidden="true"><img src="assets/img/logo.png" width="160" height="160" decoding="async" alt=""></span>
-      <span class="logo__text">Danni's<small>creative studio</small></span>
+      <span class="logo__text">Danni's<small> creative studio</small></span>
     </a>
   </header>
 
@@ -435,7 +435,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
         <div class="collection__cards">
           <article class="drawer">
             <h4 class="drawer__h">
-              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d0" aria-labelledby="t0" aria-describedby="s0">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d0">
                 <span class="drawer__crop"><img src="assets/img/qbo-agent-thumb.jpg" width="684" height="912" loading="lazy" decoding="async" alt=""></span>
                 <span class="drawer__meta">
                   <span class="drawer__title" id="t0">An AI agent that reconciles invoices on its own</span>
@@ -468,7 +468,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
                   <p class="story__gold">A tedious job that now runs itself, with a human still holding the final call. Order, pulled out of the chaos.</p>
                 </div>
                 <figure class="story__art">
-                  <img src="assets/img/qbo-agent-flow.jpg" width="1400" height="524" loading="lazy" decoding="async" alt="QBO invoice reconciliation flow: email to PDF to QuickBooks, with guardrails">
+                  <img data-src="assets/img/qbo-agent-flow.jpg" width="1400" height="524" loading="lazy" decoding="async" alt="QBO invoice reconciliation flow: email to PDF to QuickBooks, with guardrails">
                   <figcaption>the reconciliation flow, start to finish</figcaption>
                   <p class="story__links"><a class="btn-link" href="https://github.com/segolily04/QBO_AP_Reconcilation_Agent">View the code on GitHub</a></p>
                 </figure>
@@ -489,7 +489,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
         <div class="collection__cards">
           <article class="drawer">
             <h4 class="drawer__h">
-              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d1" aria-labelledby="t1" aria-describedby="s1">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d1">
                 <span class="drawer__crop"><img src="assets/img/glass-thumb.jpg" width="320" height="320" loading="lazy" decoding="async" alt=""></span>
                 <span class="drawer__meta">
                   <span class="drawer__title" id="t1">A stained glass studio, built from nothing</span>
@@ -519,7 +519,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
                   <p>The site is live at queerartglass.com.</p>
                 </div>
                 <figure class="story__art">
-                  <img src="assets/img/glass-mockup.jpg" width="640" height="820" loading="lazy" decoding="async" alt="An early design mockup for the stained glass studio website, with commissions, classes, and repair sections">
+                  <img data-src="assets/img/glass-mockup.jpg" width="640" height="820" loading="lazy" decoding="async" alt="An early design mockup for the stained glass studio website, with commissions, classes, and repair sections">
                   <figcaption>an early design mockup for the site</figcaption>
                   <p class="story__links"><a class="btn-link" href="https://www.queerartglass.com">Visit queerartglass.com</a></p>
                 </figure>
@@ -540,7 +540,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
         <div class="collection__cards">
           <article class="drawer">
             <h4 class="drawer__h">
-              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d2" aria-labelledby="t2" aria-describedby="s2">
+              <button class="drawer__face" type="button" aria-expanded="false" aria-controls="d2">
                 <span class="drawer__crop"><img src="assets/img/weefix-thumb.jpg" width="900" height="1120" loading="lazy" decoding="async" alt=""></span>
                 <span class="drawer__meta">
                   <span class="drawer__title" id="t2">A small business's books, cleaned up and made clear</span>
@@ -571,7 +571,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
                   <p class="story__gold">Books the owner can actually trust. The whole story is in the details, and I live for that part.</p>
                 </div>
                 <figure class="story__art">
-                  <img src="assets/img/weefix-pnl.jpg" width="1300" height="928" loading="lazy" decoding="async" alt="Rebuilt Profit and Loss summary for Mr. WeeFix, reconciled against the prior workbook">
+                  <img data-src="assets/img/weefix-pnl.jpg" width="1300" height="928" loading="lazy" decoding="async" alt="Rebuilt Profit and Loss summary for Mr. WeeFix, reconciled against the prior workbook">
                   <figcaption>the rebuilt P&amp;L, reconciled line by line (figures shown are placeholders to protect client data)</figcaption>
                 </figure>
               </div>
@@ -586,7 +586,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   </main>
   </div><!-- /page-cover -->
 
-  <div class="flip-page" id="page-insights" role="region" aria-label="Insights">
+  <div class="flip-page" id="page-insights" role="region" aria-label="Insights" inert>
     <div class="flip-page__inner">
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">From the notebook</p>
@@ -596,7 +596,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     </div>
   </div>
 
-  <div class="flip-page" id="page-offerings" role="region" aria-label="Offerings">
+  <div class="flip-page" id="page-offerings" role="region" aria-label="Offerings" inert>
     <div class="flip-page__inner">
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">Ways to work together</p>
@@ -645,7 +645,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     </div>
   </div>
 
-  <div class="flip-page" id="page-contact" role="region" aria-label="Contact me">
+  <div class="flip-page" id="page-contact" role="region" aria-label="Contact me" inert>
     <div class="flip-page__inner">
       <button class="pg-back" data-back aria-label="Back to the desk">&larr; back to the desk</button>
       <p class="pg-eyebrow">Let's talk</p>
@@ -711,12 +711,13 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
      scroll event, so the scroll path reads one or two rects and then only writes styles. */
   const L={};
   function measure(){
-    L.rowGap=innerWidth<=720?100:185; // settled treasure row spacing; tighter on mobile to fit the mat
     L.scrollable=Math.max(1,act1.offsetHeight-innerHeight);
     /* Where each treasure settles: a centred row whose labels end just inside the mat's
        bottom edge. Measured in screen pixels against the mat itself, then divided by the
        pile's own scale (it is shrunk on phones), so the row lands on the mat at any size. */
     const w=pan.getBoundingClientRect(), sc=scatter.getBoundingClientRect();
+    // settled row spacing: roomy on desktop; on phones it shrinks with the mat so labels keep a margin
+    L.rowGap=innerWidth<=720?Math.min(100,(w.width-gold[0].offsetWidth-32)/2):185;
     const k=(sc.width/scatter.offsetWidth)||1;
     const rects=gold.map(g=>{ const t=g.style.transform; g.style.transform='none'; const rc=g.getBoundingClientRect(); g.style.transform=t; return rc; });
     const rowH=Math.max(...rects.map(rc=>rc.height));
@@ -780,6 +781,7 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     document.body.appendChild(n); return n;
   });
   const smooth=t=>t*t*(3-2*t), clamp=t=>Math.max(0,Math.min(1,t));
+  cols.forEach((c,i)=>c.addEventListener('focusin',()=>{ if(best[i]<1){best[i]=1; request();} }));
   function renderHandoff(icons){
     const enter=innerHeight*0.98, done=innerHeight*0.55;
     icons.forEach((cr,i)=>{
@@ -827,6 +829,8 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
     btn.setAttribute('aria-expanded',open?'true':'false');
     d.classList.toggle('open',open);
     body.inert=!open;
+    // case-study images load the first time their card opens
+    if(open)body.querySelectorAll('img[data-src]').forEach(img=>{img.src=img.dataset.src;img.removeAttribute('data-src');});
     if(reduce){ body.style.height=open?'auto':'0px'; return; }
     body.style.height=body.scrollHeight+'px';
     if(open){
@@ -851,24 +855,24 @@ body{margin:0;background:#d9c7b0;color:var(--navy);font-family:var(--sans);overf
   const tabs=[...document.querySelectorAll('.tab[data-page]')];
   const pages={insights:document.getElementById('page-insights'),offerings:document.getElementById('page-offerings'),contact:document.getElementById('page-contact')};
   let openKey=null;
-  const cover=document.querySelector('.page-cover');
+  const cover=document.querySelector('.page-cover'), foot=document.querySelector('.site-foot');
   function closePage(){
     if(!openKey)return;
     const pg=pages[openKey], tab=tabs.find(t=>t.dataset.page===openKey);
-    pg.classList.remove('open');
+    pg.classList.remove('open'); pg.inert=true;
     tabs.forEach(t=>t.setAttribute('aria-current','false'));
     document.body.style.overflow='';
-    if(cover)cover.inert=false;
+    if(cover)cover.inert=false; if(foot)foot.inert=false;
     openKey=null;
     if(tab)tab.focus();
   }
   function openPage(key){
-    if(openKey&&openKey!==key)pages[openKey].classList.remove('open');
+    if(openKey&&openKey!==key){pages[openKey].classList.remove('open');pages[openKey].inert=true;}
     const pg=pages[key]; if(!pg)return;
-    pg.classList.add('open'); pg.scrollTop=0;
+    pg.inert=false; pg.classList.add('open'); pg.scrollTop=0;
     tabs.forEach(t=>t.setAttribute('aria-current', t.dataset.page===key?'true':'false'));
     document.body.style.overflow='hidden';
-    if(cover)cover.inert=true;
+    if(cover)cover.inert=true; if(foot)foot.inert=true;
     openKey=key;
     const back=pg.querySelector('.pg-back'); if(back)back.focus();
   }
